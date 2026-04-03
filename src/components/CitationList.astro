@@ -1,0 +1,135 @@
+---
+import type { BibliographyData } from "@/utils/parseBibliography";
+import CitationCard from "./CitationCard.astro";
+
+interface Props {
+  bibliography: BibliographyData;
+  defaultFormat?: "apa" | "ieee" | "chicago";
+  title?: string;
+}
+
+const { bibliography, defaultFormat = "apa", title } = Astro.props;
+---
+
+<section class="citations-section space-y-6">
+  {title && <h2 class="text-3xl font-bold">{title}</h2>}
+
+  <!-- Format Toggle (Client-side) -->
+  <div class="flex flex-wrap gap-2">
+    <span class="text-sm font-semibold text-gray-700 dark:text-gray-300">Citation Format:</span>
+    <div class="flex gap-2">
+      <button
+        data-format="apa"
+        class="format-toggle rounded-md px-3 py-1 text-sm font-medium transition-colors"
+        class:list={[defaultFormat === "apa" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"]}
+      >
+        APA
+      </button>
+      <button
+        data-format="ieee"
+        class="format-toggle rounded-md px-3 py-1 text-sm font-medium transition-colors"
+        class:list={[defaultFormat === "ieee" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"]}
+      >
+        IEEE
+      </button>
+      <button
+        data-format="chicago"
+        class="format-toggle rounded-md px-3 py-1 text-sm font-medium transition-colors"
+        class:list={[defaultFormat === "chicago" ? "bg-blue-600 text-white" : "bg-gray-200 text-gray-800 hover:bg-gray-300 dark:bg-gray-700 dark:text-gray-200 dark:hover:bg-gray-600"]}
+      >
+        Chicago
+      </button>
+    </div>
+  </div>
+
+  <!-- Export Button -->
+  <div>
+    <button
+      id="export-bibtex"
+      class="rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-green-700 dark:hover:bg-green-500"
+    >
+      📋 Export BibTeX
+    </button>
+  </div>
+
+  <!-- Citations Grid -->
+  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+    {
+      bibliography.entries.map((entry) => (
+        <div class="citation-entry" data-citation-id={entry.id}>
+          <CitationCard citation={entry} formatted={bibliography.formatted[entry.id]} defaultFormat={defaultFormat} />
+        </div>
+      ))
+    }
+  </div>
+
+  {bibliography.entries.length === 0 && (
+    <div class="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800">
+      <p class="text-gray-600 dark:text-gray-400">No publications available yet.</p>
+    </div>
+  )}
+</section>
+
+<script is:inline define:vars={{ entries: JSON.stringify(bibliography.entries), formatted: JSON.stringify(bibliography.formatted) }}>
+  const entries = JSON.parse(entries);
+  const formatted = JSON.parse(formatted);
+
+  // Format toggle
+  document.querySelectorAll(".format-toggle").forEach((button) => {
+    button.addEventListener("click", (e) => {
+      const format = e.target.dataset.format;
+
+      // Update button styles
+      document.querySelectorAll(".format-toggle").forEach((btn) => {
+        if (btn.dataset.format === format) {
+          btn.classList.remove("bg-gray-200", "text-gray-800", "dark:bg-gray-700", "dark:text-gray-200");
+          btn.classList.add("bg-blue-600", "text-white");
+        } else {
+          btn.classList.remove("bg-blue-600", "text-white");
+          btn.classList.add("bg-gray-200", "text-gray-800", "dark:bg-gray-700", "dark:text-gray-200");
+        }
+      });
+
+      // Update citations display
+      document.querySelectorAll(".citation-entry").forEach((entry) => {
+        const citationId = entry.dataset.citationId;
+        const citationHtml = formatted[citationId][format];
+        const citationDiv = entry.querySelector(".prose");
+        if (citationDiv) {
+          citationDiv.innerHTML = citationHtml;
+        }
+      });
+    });
+  });
+
+  // Export BibTeX
+  document.getElementById("export-bibtex")?.addEventListener("click", () => {
+    // Build BibTeX string
+    let bibtex = "";
+    entries.forEach((entry) => {
+      bibtex += `@${entry.type || "article"}{${entry.id},\n`;
+      if (entry.title) bibtex += `  title={${entry.title}},\n`;
+      if (entry.author) {
+        const authorList = entry.author.map((a) => `${a.family}, ${a.given || ""}`).join(" and ");
+        bibtex += `  author={${authorList}},\n`;
+      }
+      if (entry.issued?.["date-parts"]?.[0]?.[0]) {
+        bibtex += `  year={${entry.issued["date-parts"][0][0]}},\n`;
+      }
+      if (entry.DOI) bibtex += `  doi={${entry.DOI}},\n`;
+      if (entry.URL) bibtex += `  url={${entry.URL}},\n`;
+      bibtex += "}\n\n";
+    });
+
+    // Create downloadable file
+    const blob = new Blob([bibtex], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "publications.bib";
+    document.body.appendChild(a);
+    a.click();
+    window.URL.revokeObjectURL(url);
+    document.body.removeChild(a);
+  });
+</script>

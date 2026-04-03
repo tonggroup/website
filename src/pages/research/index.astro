@@ -1,0 +1,28 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import ResearchCard from "@/components/ResearchCard.astro";
+
+const research = await getCollection("research");
+---
+
+<Layout title="Research | Aithyra Lab" description="Our research areas and projects">
+  <Main pageTitle="Research" pageDesc="Exploring frontiers in machine learning and artificial intelligence">
+    <section class="space-y-8">
+      <!-- Research Grid -->
+      <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+        {research.map((r) => <ResearchCard research={r} />)}
+      </div>
+
+      <!-- Empty State -->
+      {
+        research.length === 0 && (
+          <div class="rounded-lg border border-gray-200 bg-gray-50 p-8 text-center dark:border-gray-700 dark:bg-gray-800">
+            <p class="text-gray-600 dark:text-gray-400">Research areas coming soon...</p>
+          </div>
+        )
+      }
+    </section>
+  </Main>
+</Layout>

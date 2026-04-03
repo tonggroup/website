@@ -1,0 +1,40 @@
+---
+import { parseBibliography } from "@/utils/parseBibliography";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import CitationList from "@/components/CitationList.astro";
+import { join } from "path";
+
+// Parse bibliography at build time
+const bibPath = join(process.cwd(), "src/data/publications.bib");
+const bibliography = await parseBibliography(bibPath);
+
+// Sort entries by year (newest first)
+const sortedEntries = [...bibliography.entries].sort((a, b) => {
+  const yearA = a.issued?.["date-parts"]?.[0]?.[0] || 0;
+  const yearB = b.issued?.["date-parts"]?.[0]?.[0] || 0;
+  return yearB - yearA;
+});
+
+const sortedBibliography = {
+  ...bibliography,
+  entries: sortedEntries,
+};
+---
+
+<Layout title="Publications | Aithyra Lab" description="Research publications and papers">
+  <Main pageTitle="Publications" pageDesc="Selected publications from our research group">
+    <section class="space-y-8">
+      <!-- Citation Statistics -->
+      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
+        <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+          <p class="text-sm text-gray-600 dark:text-gray-400">Total Publications</p>
+          <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{bibliography.totalCount}</p>
+        </div>
+      </div>
+
+      <!-- Citation List Component -->
+      <CitationList bibliography={sortedBibliography} defaultFormat="apa" title="All Publications" />
+    </section>
+  </Main>
+</Layout>

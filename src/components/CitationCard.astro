@@ -1,0 +1,53 @@
+---
+import type { ParsedCitation, FormattedCitations } from "@/utils/parseBibliography";
+
+interface Props {
+  citation: ParsedCitation;
+  formatted: FormattedCitations;
+  defaultFormat?: "apa" | "ieee" | "chicago";
+}
+
+const { citation, formatted, defaultFormat = "apa" } = Astro.props;
+
+// Extract year from citation
+const year = citation.issued?.["date-parts"]?.[0]?.[0];
+
+// Extract authors
+const authors = citation.author
+  ?.map((a) => (a.family ? `${a.family}, ${a.given || ""}`.trim() : ""))
+  .join("; ");
+
+// Build DOI link
+const doiLink =
+  citation.DOI && !citation.DOI.startsWith("http")
+    ? `https://doi.org/${citation.DOI}`
+    : citation.DOI;
+---
+
+<article class="citation-card space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800">
+  <!-- Title -->
+  <h3 class="line-clamp-2 text-lg font-semibold leading-tight">{citation.title}</h3>
+
+  <!-- Authors -->
+  {authors && <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">{authors}</p>}
+
+  <!-- Year -->
+  {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
+
+  <!-- Citation HTML -->
+  <div class="prose prose-sm dark:prose-invert line-clamp-3 max-w-none text-sm" set:html={formatted[defaultFormat]} />
+
+  <!-- Links -->
+  <div class="flex flex-wrap gap-2 pt-2">
+    {doiLink && (
+      <a href={doiLink} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline dark:text-blue-400">
+        DOI ↗
+      </a>
+    )}
+    {citation.URL && (
+      <a href={citation.URL} target="_blank" rel="noopener noreferrer" class="text-sm text-blue-600 hover:underline dark:text-blue-400">
+        Paper ↗
+      </a>
+    )}
+  </div>
+</article>
