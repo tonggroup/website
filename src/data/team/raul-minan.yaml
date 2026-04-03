@@ -1,0 +1,14 @@
+name: Raul Minan
+role: PhD Student
+photo: https://aithyra.at/fileadmin/_processed_/3/c/csm_RaulMinan-10_41f4e0809f.jpg
+bio: >
+  Raul works on flow-based generative models for protein structure prediction and sampling complex biochemical distributions. He is interested in combining physics-inspired modeling with data-driven approaches.
+email: raul.minan@aithyra.at
+github: raulminan
+twitter: n/a
+linkedin: raul-minan
+website: https://github.com/raulminan
+specialization:
+  - Flow Models
+  - Protein Structure Prediction
+  - Optimal Transport

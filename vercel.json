@@ -1,5 +1,5 @@
 {
-  "buildCommand": "pnpm install && pnpm build",
-  "outputDirectory": "dist",
-  "nodeVersion": "20"
+    "buildCommand": "pnpm install && pnpm build",
+    "outputDirectory": "dist",
+    "nodeVersion": "20"
 }

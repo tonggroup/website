@@ -7,41 +7,41 @@ let Cite: typeof CiteType | null = null;
 
 // Dynamic import for ESM compatibility
 async function getCite() {
-  if (!Cite) {
-    const module = await import("@citation-js/core");
-    Cite = module.Cite;
-  }
-  return Cite;
+    if (!Cite) {
+        const module = await import("@citation-js/core");
+        Cite = module.Cite;
+    }
+    return Cite;
 }
 
 export interface ParsedCitation {
-  id: string;
-  title?: string;
-  author?: Array<{
-    family?: string;
-    given?: string;
-  }>;
-  issued?: {
-    "date-parts"?: [[number]];
-  };
-  DOI?: string;
-  URL?: string;
-  type?: string;
-  [key: string]: any;
+    id: string;
+    title?: string;
+    author?: Array<{
+        family?: string;
+        given?: string;
+    }>;
+    issued?: {
+        "date-parts"?: [[number]];
+    };
+    DOI?: string;
+    URL?: string;
+    type?: string;
+    [key: string]: any;
 }
 
 export interface FormattedCitations {
-  apa: string;
-  ieee: string;
-  chicago: string;
+    apa: string;
+    ieee: string;
+    chicago: string;
 }
 
 export interface BibliographyData {
-  entries: ParsedCitation[];
-  formatted: {
-    [key: string]: FormattedCitations;
-  };
-  totalCount: number;
+    entries: ParsedCitation[];
+    formatted: {
+        [key: string]: FormattedCitations;
+    };
+    totalCount: number;
 }
 
 /**
@@ -50,54 +50,54 @@ export interface BibliographyData {
  * @returns Structured bibliography data with entries and formatted citations
  */
 export async function parseBibliography(bibPath: string): Promise<BibliographyData> {
-  try {
-    const CiteCtor = await getCite();
-    const bibContent = readFileSync(bibPath, "utf-8");
+    try {
+        const CiteCtor = await getCite();
+        const bibContent = readFileSync(bibPath, "utf-8");
 
-    // Create citation from BibTeX string
-    const cite = new CiteCtor(bibContent);
+        // Create citation from BibTeX string
+        const cite = new CiteCtor(bibContent);
 
-    // Get parsed entries using the get() method
-    const entries = cite.get() as ParsedCitation[];
+        // Get parsed entries using the get() method
+        const entries = cite.get() as ParsedCitation[];
 
-    // Generate formatted citations for each format
-    const formatted: { [key: string]: FormattedCitations } = {};
+        // Generate formatted citations for each format
+        const formatted: { [key: string]: FormattedCitations } = {};
 
-    entries.forEach((entry) => {
-      const entryCite = new CiteCtor([entry]);
+        entries.forEach((entry) => {
+            const entryCite = new CiteCtor([entry]);
 
-      formatted[entry.id] = {
-        apa: entryCite.format("bibliography", {
-          format: "html",
-          template: "apa",
-          lang: "en-US",
-        }) as string,
-        ieee: entryCite.format("bibliography", {
-          format: "html",
-          template: "ieee",
-          lang: "en-US",
-        }) as string,
-        chicago: entryCite.format("bibliography", {
-          format: "html",
-          template: "chicago",
-          lang: "en-US",
-        }) as string,
-      };
-    });
+            formatted[entry.id] = {
+                apa: entryCite.format("bibliography", {
+                    format: "html",
+                    template: "apa",
+                    lang: "en-US",
+                }) as string,
+                ieee: entryCite.format("bibliography", {
+                    format: "html",
+                    template: "ieee",
+                    lang: "en-US",
+                }) as string,
+                chicago: entryCite.format("bibliography", {
+                    format: "html",
+                    template: "chicago",
+                    lang: "en-US",
+                }) as string,
+            };
+        });
 
-    return {
-      entries,
-      formatted,
-      totalCount: entries.length,
-    };
-  } catch (error) {
-    console.error(`Error parsing bibliography at ${bibPath}:`, error);
-    return {
-      entries: [],
-      formatted: {},
-      totalCount: 0,
-    };
-  }
+        return {
+            entries,
+            formatted,
+            totalCount: entries.length,
+        };
+    } catch (error) {
+        console.error(`Error parsing bibliography at ${bibPath}:`, error);
+        return {
+            entries: [],
+            formatted: {},
+            totalCount: 0,
+        };
+    }
 }
 
 /**
@@ -107,23 +107,23 @@ export async function parseBibliography(bibPath: string): Promise<BibliographyDa
  * @returns Full bibliography as HTML string
  */
 export async function getFormattedBibliography(
-  bibPath: string,
-  format: "apa" | "ieee" | "chicago" = "apa"
+    bibPath: string,
+    format: "apa" | "ieee" | "chicago" = "apa"
 ): Promise<string> {
-  try {
-    const CiteCtor = await getCite();
-    const bibContent = readFileSync(bibPath, "utf-8");
-    const cite = new CiteCtor(bibContent);
+    try {
+        const CiteCtor = await getCite();
+        const bibContent = readFileSync(bibPath, "utf-8");
+        const cite = new CiteCtor(bibContent);
 
-    return cite.format("bibliography", {
-      format: "html",
-      template: format,
-      lang: "en-US",
-    }) as string;
-  } catch (error) {
-    console.error(`Error generating ${format} bibliography:`, error);
-    return "";
-  }
+        return cite.format("bibliography", {
+            format: "html",
+            template: format,
+            lang: "en-US",
+        }) as string;
+    } catch (error) {
+        console.error(`Error generating ${format} bibliography:`, error);
+        return "";
+    }
 }
 
 /**
@@ -133,14 +133,14 @@ export async function getFormattedBibliography(
  * @returns Array of citations from that year
  */
 export async function getCitationsByYear(
-  bibPath: string,
-  year: number
+    bibPath: string,
+    year: number
 ): Promise<ParsedCitation[]> {
-  const data = await parseBibliography(bibPath);
-  return data.entries.filter((entry) => {
-    const entryYear = entry.issued?.["date-parts"]?.[0]?.[0];
-    return entryYear === year;
-  });
+    const data = await parseBibliography(bibPath);
+    return data.entries.filter((entry) => {
+        const entryYear = entry.issued?.["date-parts"]?.[0]?.[0];
+        return entryYear === year;
+    });
 }
 
 /**
@@ -149,15 +149,15 @@ export async function getCitationsByYear(
  * @returns Sorted array of unique years
  */
 export async function getPublicationYears(bibPath: string): Promise<number[]> {
-  const data = await parseBibliography(bibPath);
-  const years = new Set<number>();
+    const data = await parseBibliography(bibPath);
+    const years = new Set<number>();
 
-  data.entries.forEach((entry) => {
-    const year = entry.issued?.["date-parts"]?.[0]?.[0];
-    if (year) {
-      years.add(year);
-    }
-  });
+    data.entries.forEach((entry) => {
+        const year = entry.issued?.["date-parts"]?.[0]?.[0];
+        if (year) {
+            years.add(year);
+        }
+    });
 
-  return Array.from(years).sort((a, b) => b - a);
+    return Array.from(years).sort((a, b) => b - a);
 }

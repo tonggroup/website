@@ -1,9 +1,9 @@
 export const SITE = {
-  website: "https://aithyra-lab.com/", // replace this with your deployed domain
+  website: "https://tong-group.com/", // replace this with your deployed domain
   author: "Alexander Tong",
   profile: "https://alextong.net/",
-  desc: "Aithyra Lab - Research group at the intersection of machine learning and life sciences, focusing on generative modeling, flow models, optimal transport, and protein design.",
-  title: "Aithyra Lab",
+  desc: "Tong Group - Research team at the intersection of machine learning and life sciences, focusing on generative modeling, flow models, optimal transport, and protein design.",
+  title: "Tong Group",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,

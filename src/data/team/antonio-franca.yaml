@@ -1,0 +1,14 @@
+name: Antonio Franca
+role: PhD Student
+photo: https://aithyra.at/fileadmin/_processed_/0/e/csm_AntonioFranca-2_8fbd842967.jpg
+bio: >
+  Antonio focuses on diffusion model training strategies and efficient inference for scientific applications. His research covers scalable approximate inference and biologically realistic generative modeling.
+email: antonio.franca@aithyra.at
+github: antoniofranca
+twitter: n/a
+linkedin: antonio-franca
+website: https://github.com/antoniofranca
+specialization:
+  - Diffusion Models
+  - Efficient Inference
+  - Scientific Machine Learning

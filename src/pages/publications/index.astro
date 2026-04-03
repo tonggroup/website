@@ -22,19 +22,35 @@ const sortedBibliography = {
 };
 ---
 
-<Layout title="Publications | Aithyra Lab" description="Research publications and papers">
-  <Main pageTitle="Publications" pageDesc="Selected publications from our research group">
+<Layout
+  title="Publications | Tong Group"
+  description="Research publications and papers"
+>
+  <Main
+    pageTitle="Publications"
+    pageDesc="Selected publications from Tong Group"
+  >
     <section class="space-y-8">
       <!-- Citation Statistics -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-          <p class="text-sm text-gray-600 dark:text-gray-400">Total Publications</p>
-          <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">{bibliography.totalCount}</p>
+        <div
+          class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
+        >
+          <p class="text-sm text-gray-600 dark:text-gray-400">
+            Total Publications
+          </p>
+          <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">
+            {bibliography.totalCount}
+          </p>
         </div>
       </div>
 
       <!-- Citation List Component -->
-      <CitationList bibliography={sortedBibliography} defaultFormat="apa" title="All Publications" />
+      <CitationList
+        bibliography={sortedBibliography}
+        defaultFormat="apa"
+        title="All Publications"
+      />
     </section>
   </Main>
 </Layout>

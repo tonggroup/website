@@ -23,7 +23,10 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <!-- Hero Section -->
-    <section id="hero" class:list={["pt-8 pb-12 sm:pt-16 sm:pb-16", "border-b border-border"]}>
+    <section
+      id="hero"
+      class:list={["pt-8 pb-12 sm:pt-16 sm:pb-16", "border-b border-border"]}
+    >
       <h1 class="my-4 inline-block text-4xl font-bold sm:my-8 sm:text-5xl">
         {SITE.title}
       </h1>
@@ -44,16 +47,34 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 
       <div class="mt-6 space-y-4 text-lg">
         <p>
-          We are a research group at <a href="https://www.oeaw.ac.at/aithyra" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400 font-semibold">Aithyra</a> in Vienna, Austria, at the intersection of machine learning and life sciences.
+          We are a research group at <a
+            href="https://aithyra.at"
+            target="_blank"
+            class="font-semibold text-blue-600 hover:underline dark:text-blue-400"
+            >Aithyra</a
+          > in Vienna, Austria, at the intersection of machine learning and life sciences.
         </p>
         <p>
-          Our research focuses on <strong>generative modeling</strong>, <strong>flow models</strong>, <strong>optimal transport</strong>, and <strong>protein design</strong>. We develop novel machine learning algorithms with applications to understanding cellular dynamics, predicting protein structures, and designing new molecules.
+          Our research focuses on <strong>generative modeling</strong>, <strong
+            >flow models</strong
+          >, <strong>optimal transport</strong>, and <strong
+            >protein design</strong
+          >. We develop novel machine learning algorithms with applications to
+          understanding cellular dynamics, predicting protein structures, and
+          designing new molecules.
         </p>
         <p>
-          Led by <strong>Alexander Tong</strong>, our group combines theoretical insights with practical applications to solve problems in computational biology and chemistry.
+          Led by <strong>Alexander Tong</strong>, our group combines theoretical
+          insights with practical applications to solve problems in
+          computational biology and chemistry.
         </p>
         <p class="pt-2">
-          We are actively recruiting PhD students, postdocs, and visiting researchers. <a href="mailto:alexander.tong@aithyra.org" class="text-blue-600 hover:underline dark:text-blue-400 font-semibold">Get in touch</a> if you're interested!
+          We are actively recruiting PhD students, postdocs, and visiting
+          researchers. <a
+            href="mailto:alexander.tong@aithyra.org"
+            class="font-semibold text-blue-600 hover:underline dark:text-blue-400"
+            >Get in touch</a
+          > if you're interested!
         </p>
       </div>
       {
@@ -68,49 +89,69 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     </section>
 
     <!-- Highlights Section -->
-    <section id="highlights" class="pt-12 pb-6 border-b border-border">
-      <h2 class="text-2xl font-semibold tracking-wide mb-6">Explore</h2>
+    <section id="highlights" class="border-b border-border pt-12 pb-6">
+      <h2 class="mb-6 text-2xl font-semibold tracking-wide">Explore</h2>
       <ul class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <!-- Research Highlight -->
-        <li class="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-shadow dark:border-gray-700 dark:bg-gray-800">
-          <h3 class="text-lg font-bold mb-2">Research</h3>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
+        <li
+          class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="mb-2 text-lg font-bold">Research</h3>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">
             Explore our active research areas and ongoing projects.
           </p>
-          <a href="/research" class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:underline dark:text-blue-400">
+          <a
+            href="/research"
+            class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
+          >
             View Research <IconArrowRight width={16} height={16} />
           </a>
         </li>
 
         <!-- Team Highlight -->
-        <li class="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-shadow dark:border-gray-700 dark:bg-gray-800">
-          <h3 class="text-lg font-bold mb-2">Team</h3>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
+        <li
+          class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="mb-2 text-lg font-bold">Team</h3>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">
             Meet the researchers and students in our lab.
           </p>
-          <a href="/team" class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:underline dark:text-blue-400">
+          <a
+            href="/team"
+            class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
+          >
             Meet the Team <IconArrowRight width={16} height={16} />
           </a>
         </li>
 
         <!-- Publications Highlight -->
-        <li class="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-shadow dark:border-gray-700 dark:bg-gray-800">
-          <h3 class="text-lg font-bold mb-2">Publications</h3>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
+        <li
+          class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="mb-2 text-lg font-bold">Publications</h3>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">
             Browse our peer-reviewed papers and preprints.
           </p>
-          <a href="/publications" class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:underline dark:text-blue-400">
+          <a
+            href="/publications"
+            class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
+          >
             View Publications <IconArrowRight width={16} height={16} />
           </a>
         </li>
 
         <!-- Blog Highlight -->
-        <li class="rounded-lg border border-gray-200 bg-white p-6 hover:shadow-lg transition-shadow dark:border-gray-700 dark:bg-gray-800">
-          <h3 class="text-lg font-bold mb-2">Blog</h3>
-          <p class="text-gray-700 dark:text-gray-300 mb-4">
+        <li
+          class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
+        >
+          <h3 class="mb-2 text-lg font-bold">Blog</h3>
+          <p class="mb-4 text-gray-700 dark:text-gray-300">
             Read updates, insights, and technical posts from our team.
           </p>
-          <a href="/posts" class="inline-flex items-center gap-1 text-blue-600 font-semibold hover:underline dark:text-blue-400">
+          <a
+            href="/posts"
+            class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
+          >
             Read Blog <IconArrowRight width={16} height={16} />
           </a>
         </li>
