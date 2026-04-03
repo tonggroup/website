@@ -42,17 +42,25 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
         <span class="sr-only">RSS Feed</span>
       </a>
 
-      <p class="mt-4 text-lg">
-        Advancing research in machine learning and artificial intelligence.
-      </p>
-      <p class="mt-2">
-        Our lab focuses on developing novel algorithms, optimizing deep learning systems, and applying AI techniques to real-world problems. Explore our research areas, meet our team, or read our latest publications.
-      </p>
+      <div class="mt-6 space-y-4 text-lg">
+        <p>
+          We are a research group at <a href="https://www.oeaw.ac.at/aithyra" target="_blank" class="text-blue-600 hover:underline dark:text-blue-400 font-semibold">Aithyra</a> in Vienna, Austria, at the intersection of machine learning and life sciences.
+        </p>
+        <p>
+          Our research focuses on <strong>generative modeling</strong>, <strong>flow models</strong>, <strong>optimal transport</strong>, and <strong>protein design</strong>. We develop novel machine learning algorithms with applications to understanding cellular dynamics, predicting protein structures, and designing new molecules.
+        </p>
+        <p>
+          Led by <strong>Alexander Tong</strong>, our group combines theoretical insights with practical applications to solve problems in computational biology and chemistry.
+        </p>
+        <p class="pt-2">
+          We are actively recruiting PhD students, postdocs, and visiting researchers. <a href="mailto:alexander.tong@aithyra.org" class="text-blue-600 hover:underline dark:text-blue-400 font-semibold">Get in touch</a> if you're interested!
+        </p>
+      </div>
       {
         // only display if at least one social link is enabled
         SOCIALS.length > 0 && (
-          <div class="mt-4 flex max-sm:flex-col sm:items-center">
-            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Social Links:</div>
+          <div class="mt-6 flex max-sm:flex-col sm:items-center">
+            <div class="me-2 mb-1 whitespace-nowrap sm:mb-0">Connect:</div>
             <Socials />
           </div>
         )

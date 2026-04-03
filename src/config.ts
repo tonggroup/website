@@ -1,8 +1,8 @@
 export const SITE = {
   website: "https://aithyra-lab.com/", // replace this with your deployed domain
   author: "Alexander Tong",
-  profile: "https://alextong.com/",
-  desc: "Aithyra Lab - Research in AI and machine learning.",
+  profile: "https://alextong.net/",
+  desc: "Aithyra Lab - Research group at the intersection of machine learning and life sciences, focusing on generative modeling, flow models, optimal transport, and protein design.",
   title: "Aithyra Lab",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
@@ -19,5 +19,5 @@ export const SITE = {
   dynamicOgImage: true,
   dir: "ltr", // "rtl" | "auto"
   lang: "en", // html lang code. Set this empty and default will be "en"
-  timezone: "America/New_York", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
+  timezone: "Europe/Vienna", // Default global timezone (IANA format) https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 } as const;

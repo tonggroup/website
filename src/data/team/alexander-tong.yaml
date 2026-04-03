@@ -1,14 +1,17 @@
 name: Alexander Tong
 role: Principal Investigator
 bio: >
-  Alexander Tong is the founder and principal investigator of the Aithyra Lab.
-  His research focuses on machine learning, AI systems, and computational methods.
-email: alexander@aithyra.com
-github: alextong
-twitter: alextong
-linkedin: alextong
-website: https://alextong.com
+  Alexander Tong is a Principal Investigator at Aithyra, a research institute at the intersection of machine learning and life sciences led by Michael Bronstein and funded by the Boehringer Ingelheim Foundation. He works on generative modeling, deep learning, and optimal transport, with applications to cell and molecular biology. Previously, he was an assistant professor at Duke University and a postdoc at Mila with Yoshua Bengio. He received his PhD from Yale University in 2021, advised by Smita Krishnaswamy.
+email: alexander.tong@aithyra.org
+github: atong01
+twitter: atong0
+linkedin: alexander-tong-84ab791a1
+website: https://alextong.net
 specialization:
+  - Generative Modeling
+  - Flow Models
+  - Optimal Transport
+  - Protein Design
+  - Single Cell Dynamics
   - Machine Learning
-  - AI Systems
   - Deep Learning
