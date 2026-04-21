@@ -2,12 +2,13 @@ import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
 import { SITE } from "@/config";
 
-export const BLOG_PATH = "src/data/blog";
+export const NEWS_PATH = "src/data/news";
 export const TEAM_PATH = "src/data/team";
 export const RESEARCH_PATH = "src/data/research";
+export const PUBLICATIONS_PATH = "src/data/publications";
 
-const blog = defineCollection({
-  loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
+const news = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${NEWS_PATH}` }),
   schema: ({ image }) =>
     z.object({
       author: z.string().default(SITE.author),
@@ -63,4 +64,34 @@ const research = defineCollection({
     }),
 });
 
-export const collections = { blog, team, research };
+const publications = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${PUBLICATIONS_PATH}` }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      subtitle: z.string().optional(),
+      authors: z.array(z.string()),
+      authorNotes: z.record(z.string()).optional(),
+      date: z.date(),
+      featured: z.boolean().optional(),
+      draft: z.boolean().optional(),
+      tags: z.array(z.string()).optional(),
+      categories: z.array(z.string()).optional(),
+      image: image().optional(),
+      imageCaption: z.string().optional(),
+      publication: z.string().optional(),
+      abstract: z.string().optional(),
+      urlPdf: z.string().optional(),
+      urlCode: z.string().optional(),
+      links: z
+        .array(
+          z.object({
+            name: z.string(),
+            url: z.string(),
+          })
+        )
+        .optional(),
+    }),
+});
+
+export const collections = { news, team, research, publications };

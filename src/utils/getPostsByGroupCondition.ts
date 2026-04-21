@@ -6,13 +6,13 @@ interface GroupFunction<T> {
   (item: T, index?: number): GroupKey;
 }
 
-const getPostsByGroupCondition = (
-  posts: CollectionEntry<"blog">[],
-  groupFunction: GroupFunction<CollectionEntry<"blog">>
+const getNewsByGroupCondition = (
+  newsItems: CollectionEntry<"news">[],
+  groupFunction: GroupFunction<CollectionEntry<"news">>
 ) => {
-  const result: Record<GroupKey, CollectionEntry<"blog">[]> = {};
-  for (let i = 0; i < posts.length; i++) {
-    const item = posts[i];
+  const result: Record<GroupKey, CollectionEntry<"news">[]> = {};
+  for (let i = 0; i < newsItems.length; i++) {
+    const item = newsItems[i];
     const groupKey = groupFunction(item, i);
     if (!result[groupKey]) {
       result[groupKey] = [];
@@ -22,4 +22,4 @@ const getPostsByGroupCondition = (
   return result;
 };
 
-export default getPostsByGroupCondition;
+export default getNewsByGroupCondition;

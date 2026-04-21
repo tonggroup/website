@@ -7,10 +7,10 @@ interface Tag {
   tagName: string;
 }
 
-const getUniqueTags = (posts: CollectionEntry<"blog">[]) => {
-  const tags: Tag[] = posts
+const getUniqueTags = (newsItems: CollectionEntry<"news">[]) => {
+  const tags: Tag[] = newsItems
     .filter(postFilter)
-    .flatMap(post => post.data.tags)
+    .flatMap(newsItem => newsItem.data.tags)
     .map(tag => ({ tag: slugifyStr(tag), tagName: tag }))
     .filter(
       (value, index, self) =>

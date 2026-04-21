@@ -12,9 +12,9 @@ import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
-const posts = await getCollection("blog");
+const newsItems = await getCollection("news");
 
-const sortedPosts = getSortedPosts(posts);
+const sortedPosts = getSortedPosts(newsItems);
 const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
@@ -140,19 +140,19 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           </a>
         </li>
 
-        <!-- Blog Highlight -->
+        <!-- News Highlight -->
         <li
           class="rounded-lg border border-gray-200 bg-white p-6 transition-shadow hover:shadow-lg dark:border-gray-700 dark:bg-gray-800"
         >
-          <h3 class="mb-2 text-lg font-bold">Blog</h3>
+          <h3 class="mb-2 text-lg font-bold">News</h3>
           <p class="mb-4 text-gray-700 dark:text-gray-300">
-            Read updates, insights, and technical posts from our team.
+            Read updates, insights, and technical news from our team.
           </p>
           <a
-            href="/posts"
+            href="/news"
             class="inline-flex items-center gap-1 font-semibold text-blue-600 hover:underline dark:text-blue-400"
           >
-            Read Blog <IconArrowRight width={16} height={16} />
+            Read News <IconArrowRight width={16} height={16} />
           </a>
         </li>
       </ul>
@@ -167,7 +167,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
             { "border-b border-border": recentPosts.length > 0 },
           ]}
         >
-          <h2 class="text-2xl font-semibold tracking-wide">Featured Posts</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">Featured News</h2>
           <ul>
             {featuredPosts.map(data => (
               <Card variant="h3" {...data} />
@@ -180,7 +180,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     {
       recentPosts.length > 0 && (
         <section id="recent-posts" class="pt-12 pb-6">
-          <h2 class="text-2xl font-semibold tracking-wide">Recent Posts</h2>
+          <h2 class="text-2xl font-semibold tracking-wide">Recent News</h2>
           <ul>
             {recentPosts.map(
               (data, index) =>
@@ -192,8 +192,8 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
     }
 
     <div class="my-8 text-center">
-      <LinkButton href="/posts/">
-        All Posts
+      <LinkButton href="/news/">
+        All News
         <IconArrowRight class="inline-block rtl:-rotate-180" />
       </LinkButton>
     </div>

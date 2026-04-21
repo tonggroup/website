@@ -1,19 +1,30 @@
 ---
 import { parseBibliography } from "@/utils/parseBibliography";
+import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import CitationList from "@/components/CitationList.astro";
 import { join } from "path";
 
-// Parse bibliography at build time
 const bibPath = join(process.cwd(), "src/data/publications.bib");
 const bibliography = await parseBibliography(bibPath);
+const publications = await getCollection("publications");
 
-// Sort entries by year (newest first)
+// Sort publications by date in reverse chronological order (newest first)
+publications.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const publicationSlugs = new Set(publications.map(p => p.id));
+const publicationDates = new Map(publications.map(p => [p.id, p.data.date]));
+
+// Sort entries by date (newest first), using publication date if available, else year
 const sortedEntries = [...bibliography.entries].sort((a, b) => {
-  const yearA = a.issued?.["date-parts"]?.[0]?.[0] || 0;
-  const yearB = b.issued?.["date-parts"]?.[0]?.[0] || 0;
-  return yearB - yearA;
+  const dateA =
+    publicationDates.get(a.id) ||
+    new Date(a.issued?.["date-parts"]?.[0]?.[0] || 0, 0, 1);
+  const dateB =
+    publicationDates.get(b.id) ||
+    new Date(b.issued?.["date-parts"]?.[0]?.[0] || 0, 0, 1);
+  return dateB.getTime() - dateA.getTime();
 });
 
 const sortedBibliography = {
@@ -45,11 +56,47 @@ const sortedBibliography = {
         </div>
       </div>
 
+      <!-- Publications from MD files -->
+      {
+        publications.length > 0 && (
+          <section class="space-y-6">
+            <h2 class="text-3xl font-bold">Recent Publications</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+              {publications.map(pub => (
+                <article class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+                  <h3 class="mb-2 text-lg font-semibold text-blue-600 dark:text-blue-400">
+                    <a href={`/publications/${pub.id}`}>{pub.data.title}</a>
+                  </h3>
+                  <p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
+                    {pub.data.authors.join(", ")}
+                  </p>
+                  <p class="mb-2 text-xs text-gray-500 dark:text-gray-500">
+                    {pub.data.date.toLocaleDateString()}
+                  </p>
+                  {pub.data.abstract && (
+                    <p class="line-clamp-3 text-sm">{pub.data.abstract}</p>
+                  )}
+                  {pub.data.urlPdf && (
+                    <a
+                      href={pub.data.urlPdf}
+                      class="text-sm text-blue-600 dark:text-blue-400"
+                    >
+                      PDF
+                    </a>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+
       <!-- Citation List Component -->
       <CitationList
         bibliography={sortedBibliography}
         defaultFormat="apa"
         title="All Publications"
+        publicationSlugs={publicationSlugs}
       />
     </section>
   </Main>

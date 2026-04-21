@@ -8,9 +8,10 @@ interface Props {
   citation: ParsedCitation;
   formatted: FormattedCitations;
   defaultFormat?: "apa" | "ieee" | "chicago";
+  publicationSlug?: string;
 }
 
-const { citation, formatted, defaultFormat = "apa" } = Astro.props;
+const { citation, formatted, defaultFormat = "apa", publicationSlug } = Astro.props;
 
 // Extract year from citation
 const year = citation.issued?.["date-parts"]?.[0]?.[0];
@@ -27,57 +28,89 @@ const doiLink =
     : citation.DOI;
 ---
 
-<article
-  class="citation-card space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
->
-  <!-- Title -->
-  <h3 class="line-clamp-2 text-lg leading-tight font-semibold">
-    {citation.title}
-  </h3>
-
-  <!-- Authors -->
-  {
-    authors && (
-      <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
-        {authors}
-      </p>
-    )
-  }
-
-  <!-- Year -->
-  {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
-
-  <!-- Citation HTML -->
-  <div
-    class="prose prose-sm line-clamp-3 max-w-none text-sm dark:prose-invert"
-    set:html={formatted[defaultFormat]}
-  />
-
-  <!-- Links -->
-  <div class="flex flex-wrap gap-2 pt-2">
-    {
-      doiLink && (
-        <a
-          href={doiLink}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm text-blue-600 hover:underline dark:text-blue-400"
-        >
-          DOI ↗
-        </a>
-      )
-    }
-    {
-      citation.URL && (
-        <a
-          href={citation.URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-sm text-blue-600 hover:underline dark:text-blue-400"
-        >
-          Paper ↗
-        </a>
-      )
-    }
-  </div>
-</article>
+{
+  publicationSlug ? (
+    <a
+      href={`/publications/${publicationSlug}`}
+      class="block citation-card space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800 hover:border-blue-500 dark:hover:border-blue-500"
+    >
+      <h3 class="line-clamp-2 text-lg leading-tight font-semibold text-blue-600 dark:text-blue-400">
+        {citation.title}
+      </h3>
+      {
+        authors && (
+          <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+            {authors}
+          </p>
+        )
+      }
+      {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
+      <div
+        class="prose prose-sm line-clamp-3 max-w-none text-sm dark:prose-invert"
+        set:html={formatted[defaultFormat]}
+      />
+      <div class="flex flex-wrap gap-2 pt-2">
+        {
+          doiLink && (
+            <span class="text-sm text-blue-600 dark:text-blue-400">
+              DOI ↗
+            </span>
+          )
+        }
+        {
+          citation.URL && (
+            <span class="text-sm text-blue-600 dark:text-blue-400">
+              Paper ↗
+            </span>
+          )
+        }
+      </div>
+    </a>
+  ) : (
+    <article
+      class="citation-card space-y-2 rounded-lg border border-gray-200 bg-white p-4 dark:border-gray-700 dark:bg-gray-800"
+    >
+      <h3 class="line-clamp-2 text-lg leading-tight font-semibold">
+        {citation.title}
+      </h3>
+      {
+        authors && (
+          <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
+            {authors}
+          </p>
+        )
+      }
+      {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
+      <div
+        class="prose prose-sm line-clamp-3 max-w-none text-sm dark:prose-invert"
+        set:html={formatted[defaultFormat]}
+      />
+      <div class="flex flex-wrap gap-2 pt-2">
+        {
+          doiLink && (
+            <a
+              href={doiLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-blue-600 hover:underline dark:text-blue-400"
+            >
+              DOI ↗
+            </a>
+          )
+        }
+        {
+          citation.URL && (
+            <a
+              href={citation.URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="text-sm text-blue-600 hover:underline dark:text-blue-400"
+            >
+              Paper ↗
+            </a>
+          )
+        }
+      </div>
+    </article>
+  )
+}

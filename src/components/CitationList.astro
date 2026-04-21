@@ -6,9 +6,10 @@ interface Props {
   bibliography: BibliographyData;
   defaultFormat?: "apa" | "ieee" | "chicago";
   title?: string;
+  publicationSlugs?: Set<string>;
 }
 
-const { bibliography, defaultFormat = "apa", title } = Astro.props;
+const { bibliography, defaultFormat = "apa", title, publicationSlugs } = Astro.props;
 ---
 
 <section class="citations-section space-y-6">
@@ -75,6 +76,7 @@ const { bibliography, defaultFormat = "apa", title } = Astro.props;
             citation={entry}
             formatted={bibliography.formatted[entry.id]}
             defaultFormat={defaultFormat}
+            publicationSlug={publicationSlugs?.has(entry.id) ? entry.id : undefined}
           />
         </div>
       ))

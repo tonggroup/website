@@ -5,6 +5,16 @@ import Main from "@/layouts/Main.astro";
 import TeamMemberCard from "@/components/TeamMemberCard.astro";
 
 const team = await getCollection("team");
+
+const sortedTeam = [...team].sort((a, b) => {
+  const aIsPI = a.data.role.includes("Principal Investigator");
+  const bIsPI = b.data.role.includes("Principal Investigator");
+  
+  if (aIsPI && !bIsPI) return 1;
+  if (!aIsPI && bIsPI) return -1;
+  
+  return a.data.name.localeCompare(b.data.name);
+});
 ---
 
 <Layout
@@ -21,7 +31,7 @@ const team = await getCollection("team");
         class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
       >
         {
-          team.map(member => (
+          sortedTeam.map(member => (
             <a href={`/team/${member.id}`} class="block">
               <TeamMemberCard member={member} />
             </a>
