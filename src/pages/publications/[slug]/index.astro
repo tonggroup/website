@@ -21,7 +21,13 @@ const { pub } = Astro.props;
 const { data, body } = pub;
 ---
 
-<Layout title={`${data.title} | Tong Group`} description={data.abstract || data.title}>
+<Layout
+  title={`${data.title} | Tong Group`}
+  description={data.abstract || data.title}
+  pubDatetime={data.date}
+  schema="scholarlyArticle"
+  articleAuthors={data.authors}
+>
   <Main pageTitle={data.title} pageDesc={data.publication}>
     <section class="space-y-6">
       <div class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800">

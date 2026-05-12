@@ -39,21 +39,25 @@ function parseFrontmatter(content) {
 
 // Function to convert to target format
 function convertToTargetFormat(sourceData) {
-    let dateStr = '2023-01-01'; // default
-  if (sourceData.date && sourceData.date !== 'undefined') {
-            // Extract YYYY-MM-DD from string
-            const match = sourceData.date.match(/^(\d{4}-\d{2}-\d{2})/);
-            if (match) {
-                dateStr = match[1];
-            }
-        } else if (sourceData.date instanceof Date) {
-            dateStr = sourceData.date.toISOString().split('T')[0];
-        }
+  let dateStr = "2023-01-01";
+  if (sourceData.date && sourceData.date !== "undefined") {
+    if (typeof sourceData.date === "string") {
+      const match = sourceData.date.match(/^(\d{4}-\d{2}-\d{2})/);
+      if (match) {
+        dateStr = match[1];
+      }
+    } else if (sourceData.date instanceof Date) {
+      dateStr = sourceData.date.toISOString().split("T")[0];
     }
+  }
 
-    const target = {
-        title: sourceData.title,
-    authors: (sourceData.authors || []).map(author => author === 'admin' ? 'Alexander Tong' : author),
+  const target = {
+    title: sourceData.title,
+    date: dateStr,
+    featured: sourceData.featured ?? false,
+    authors: (sourceData.authors || []).map(author =>
+      author === "admin" ? "Alexander Tong" : author
+    ),
         tags: sourceData.tags || [],
         publication: (sourceData.publication_short || sourceData.publication || '').replace(/<br\s*\/?>/gi, ' ').replace(/\n/g, ' '),
         abstract: sourceData.abstract,

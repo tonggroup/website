@@ -10,8 +10,8 @@ const sortedTeam = [...team].sort((a, b) => {
   const aIsPI = a.data.role.includes("Principal Investigator");
   const bIsPI = b.data.role.includes("Principal Investigator");
   
-  if (aIsPI && !bIsPI) return 1;
-  if (!aIsPI && bIsPI) return -1;
+  if (aIsPI && !bIsPI) return -1;
+  if (!aIsPI && bIsPI) return 1;
   
   return a.data.name.localeCompare(b.data.name);
 });

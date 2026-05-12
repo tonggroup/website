@@ -13,9 +13,9 @@ const newsItems = await getCollection("news");
 let tags = getUniqueTags(newsItems);
 ---
 
-<Layout title={`Tags | ${SITE.title}`}>
+<Layout title={`News tags | ${SITE.title}`}>
   <Header />
-  <Main pageTitle="Tags" pageDesc="All the tags used in news.">
+  <Main pageTitle="News tags" pageDesc="All tags used on news posts.">
     <ul class="flex flex-wrap gap-6">
       {tags.map(({ tag, tagName }) => <Tag {tag} {tagName} />)}
     </ul>

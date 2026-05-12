@@ -19,7 +19,11 @@ const featuredPosts = sortedPosts.filter(({ data }) => data.featured);
 const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
 ---
 
-<Layout>
+<Layout
+  title={`${SITE.title} | Aithyra, Vienna`}
+  description={SITE.desc}
+  schema="homepage"
+>
   <Header />
   <main id="main-content" data-layout="index" class="app-layout">
     <!-- Hero Section -->
@@ -50,6 +54,7 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           We are a research group at <a
             href="https://aithyra.at"
             target="_blank"
+            rel="noopener noreferrer"
             class="font-semibold text-blue-600 hover:underline dark:text-blue-400"
             >Aithyra</a
           > in Vienna, Austria, at the intersection of machine learning and life sciences.
@@ -64,14 +69,19 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
           designing new molecules.
         </p>
         <p>
-          Led by <strong>Alexander Tong</strong>, our group combines theoretical
-          insights with practical applications to solve problems in
-          computational biology and chemistry.
+          Led by <a
+            href={SITE.profile}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="font-semibold text-blue-600 hover:underline dark:text-blue-400"
+            ><strong>Alexander Tong</strong></a
+          >, our group combines theoretical insights with practical applications to
+          solve problems in computational biology and chemistry.
         </p>
         <p class="pt-2">
           We are actively recruiting PhD students, postdocs, and visiting
           researchers. <a
-            href="mailto:alexander.tong@aithyra.org"
+            href="mailto:atong@aithyra.at"
             class="font-semibold text-blue-600 hover:underline dark:text-blue-400"
             >Get in touch</a
           > if you're interested!

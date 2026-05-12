@@ -1,10 +1,10 @@
 export const SITE = {
-  website: "https://tong-group.com/", // replace this with your deployed domain
+  website: "https://tong-group.com/",
   author: "Alexander Tong",
   profile: "https://alextong.net/",
   desc: "Tong Group - Research team at the intersection of machine learning and life sciences, focusing on generative modeling, flow models, optimal transport, and protein design.",
   title: "Tong Group",
-  ogImage: "astropaper-og.jpg",
+  ogImage: "tong-group-og.png",
   lightAndDarkMode: true,
   postPerIndex: 4,
   postPerPage: 4,

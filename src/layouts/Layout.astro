@@ -5,16 +5,22 @@ import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
 import "@/styles/global.css";
 
+type JsonLdSchema = "homepage" | "webpage" | "newsArticle" | "scholarlyArticle";
+
 type Props = {
   title?: string;
   author?: string;
   profile?: string;
   description?: string;
   ogImage?: string;
-  canonicalURL?: string;
+  canonicalURL?: string | URL;
   pubDatetime?: Date;
   modDatetime?: Date | null;
   scrollSmooth?: boolean;
+  /** Controls JSON-LD; defaults to generic WebPage (not BlogPosting). */
+  schema?: JsonLdSchema;
+  /** Author names for ScholarlyArticle JSON-LD (publication pages). */
+  articleAuthors?: string[];
 };
 
 const {
@@ -23,29 +29,128 @@ const {
   profile = SITE.profile,
   description = SITE.desc,
   ogImage = SITE.ogImage ? `/${SITE.ogImage}` : "/og.png",
-  canonicalURL = new URL(Astro.url.pathname, Astro.url),
+  canonicalURL: canonicalURLProp,
   pubDatetime,
   modDatetime,
   scrollSmooth = false,
+  schema = "webpage",
+  articleAuthors,
 } = Astro.props;
+
+const canonicalURL =
+  canonicalURLProp === undefined
+    ? new URL(Astro.url.pathname, Astro.url)
+    : typeof canonicalURLProp === "string"
+      ? new URL(canonicalURLProp, Astro.site ?? Astro.url)
+      : canonicalURLProp;
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const structuredData = {
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  headline: `${title}`,
-  image: `${socialImageURL}`,
-  datePublished: `${pubDatetime?.toISOString()}`,
-  ...(modDatetime && { dateModified: modDatetime.toISOString() }),
-  author: [
-    {
-      "@type": "Person",
-      name: `${author}`,
-      ...(profile && { url: profile }),
-    },
-  ],
-};
+const siteBase = new URL(SITE.website).origin;
+const orgId = `${siteBase}/#organization`;
+
+function buildJsonLd(): Record<string, unknown> {
+  switch (schema) {
+    case "homepage": {
+      return {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": orgId,
+            name: SITE.title,
+            url: siteBase,
+            description: SITE.desc,
+            sameAs: [
+              "https://github.com/tonggroup",
+              "https://aithyra.at",
+              SITE.profile,
+            ],
+          },
+          {
+            "@type": "WebSite",
+            name: SITE.title,
+            url: siteBase,
+            inLanguage: SITE.lang,
+            publisher: { "@id": orgId },
+          },
+        ],
+      };
+    }
+    case "newsArticle": {
+      const article: Record<string, unknown> = {
+        "@context": "https://schema.org",
+        "@type": "NewsArticle",
+        headline: title,
+        description,
+        image: `${socialImageURL}`,
+        url: canonicalURL.href,
+        author: [
+          {
+            "@type": "Person",
+            name: author,
+            ...(profile ? { url: profile } : {}),
+          },
+        ],
+      };
+      if (pubDatetime) {
+        article.datePublished = pubDatetime.toISOString();
+      }
+      if (modDatetime) {
+        article.dateModified = modDatetime.toISOString();
+      }
+      return article;
+    }
+    case "scholarlyArticle": {
+      const authors =
+        articleAuthors?.length ?
+          articleAuthors.map(name => ({
+            "@type": "Person",
+            name,
+          }))
+        : [
+            {
+              "@type": "Person",
+              name: author,
+              ...(profile ? { url: profile } : {}),
+            },
+          ];
+
+      const scholarly: Record<string, unknown> = {
+        "@context": "https://schema.org",
+        "@type": "ScholarlyArticle",
+        headline: title.replace(/\s*\|\s*Tong Group\s*$/, "").trim() || title,
+        description,
+        image: `${socialImageURL}`,
+        url: canonicalURL.href,
+        author: authors,
+      };
+      if (pubDatetime) {
+        scholarly.datePublished = pubDatetime.toISOString();
+      }
+      if (modDatetime) {
+        scholarly.dateModified = modDatetime.toISOString();
+      }
+      return scholarly;
+    }
+    default: {
+      return {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: title,
+        description,
+        url: canonicalURL.href,
+        isPartOf: {
+          "@type": "WebSite",
+          name: SITE.title,
+          url: siteBase,
+        },
+      };
+    }
+  }
+}
+
+const structuredData = buildJsonLd();
 ---
 
 <!doctype html>
@@ -121,7 +226,16 @@ const structuredData = {
       href={new URL("rss.xml", Astro.site)}
     />
 
-    <meta name="theme-color" content="" />
+    <meta
+      name="theme-color"
+      content="#fdfdfd"
+      media="(prefers-color-scheme: light)"
+    />
+    <meta
+      name="theme-color"
+      content="#212737"
+      media="(prefers-color-scheme: dark)"
+    />
 
     {
       // If PUBLIC_GOOGLE_SITE_VERIFICATION is set in the environment variable,
