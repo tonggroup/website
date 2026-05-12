@@ -7,7 +7,7 @@ authors:
   - Alexander Tong
   - Kirill Neklyudov
 date: 2025-01-01
-publication: "In *ICLR* (spotlight)"
+publication: "In *ICLR 2025* (spotlight)"
 urlPdf: https://arxiv.org/pdf/2412.17762
 links:
   - name: Paper

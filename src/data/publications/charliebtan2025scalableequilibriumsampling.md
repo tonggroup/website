@@ -8,7 +8,7 @@ authors:
   - Michael M. Bronstein
   - Alexander Tong
 date: 2025-01-01
-publication: "In *ICML*"
+publication: "In *ICML 2025*"
 abstract: >
   Scalable sampling of molecular states in thermodynamic equilibrium is a long-standing challenge in statistical physics. Boltzmann generators tackle this problem by pairing normalizing flows with importance sampling to obtain uncorrelated samples under the target distribution. In this paper, we extend the Boltzmann generator framework with two key contributions, denoting our framework Sequential Boltzmann Generators (SBG). The first is a highly efficient Transformer-based normalizing flow operating directly on all-atom Cartesian coordinates. In contrast to the equivariant continuous flows of prior methods, we leverage exactly invertible non-equivariant architectures which are highly efficient during both sample generation and likelihood evaluation. This efficiency unlocks more sophisticated inference strategies beyond standard importance sampling. In particular, we perform inference-time scaling of flow samples using a continuous-time variant of sequential Monte Carlo, in which flow samples are transported towards the target distribution with annealed Langevin dynamics. SBG achieves state-of-the-art performance w.r.t. all metrics on peptide systems, demonstrating the first equilibrium sampling in Cartesian coordinates of tri-, tetra- and hexa-peptides that were thus far intractable for prior Boltzmann generators.
 urlPdf: https://arxiv.org/pdf/2502.18462

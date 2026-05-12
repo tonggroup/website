@@ -9,6 +9,6 @@ authors:
   - Andrea Dittadi
   - Fabian Theis
 date: 2025-01-01
-publication: "In *ICLR*"
+publication: "In *ICLR 2025*"
 ---
 
