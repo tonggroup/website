@@ -8,7 +8,7 @@ authors:
   - Guy Wolf
   - Ian Adelstein
   - Smita Krishnaswamy
-date: 2023-01-01
+date: 2023-12-10
 publication: "In *NeurIPS*"
 urlPdf: https://arxiv.org/abs/2305.19043
 links:

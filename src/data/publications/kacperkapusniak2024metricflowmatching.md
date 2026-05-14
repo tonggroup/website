@@ -9,7 +9,7 @@ authors:
   - Michael Bronstein
   - Avishek Joey Bose
   - Francesco Di Giovanni
-date: 2024-01-01
+date: 2024-12-10
 tags:
   - flow-matching
 publication: "In *NeurIPS 2024*"

@@ -4,8 +4,8 @@ authors:
   - Alexander Tong
   - Guy Wolf
   - Smita Krishnaswamy
-date: 2020-01-01
-publication: "In *IEEE MLSP*.   **Best Student Paper Award**"
+date: 2020-09-01
+publication: "Journal version in *Journal of Signal Processing Systems* (2021). Presented at *IEEE MLSP 2020* (**Best Student Paper Award**)."
 abstract: >
   Anomaly detection is of great interest in fields where abnormalities need to be identified and corrected (e.g., medicine and finance). Deep learning methods for this task often rely on autoencoder reconstruction error, sometimes in conjunction with other errors. We show that this approach exhibits intrinsic biases that lead to undesirable results. Reconstruction-based methods are sensitive to training-data outliers and simple-to-reconstruct points. Instead, we introduce a new unsupervised Lipschitz anomaly discriminator that does not suffer from these biases. Our anomaly discriminator is trained, similar to the ones used in GANs, to detect the difference between the training data and corruptions of the training data. We show that this procedure successfully detects unseen anomalies with guarantees on those that have a certain Wasserstein distance from the data or corrupted training set. These additions allow us to show improved performance on MNIST, CIFAR10, and health record data.
 urlPdf: https://arxiv.org/abs/1905.10710

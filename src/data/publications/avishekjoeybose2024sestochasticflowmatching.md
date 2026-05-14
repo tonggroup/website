@@ -11,7 +11,7 @@ authors:
   - Maksym Korablyov
   - Michael Bronstein
   - Alexander Tong
-date: 2024-01-01
+date: 2024-05-07
 tags:
   - flow-matching
 publication: "In *ICLR 2024* (Spotlight)"

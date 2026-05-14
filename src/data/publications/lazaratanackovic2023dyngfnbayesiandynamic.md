@@ -7,7 +7,7 @@ authors:
   - Leo J. Lee
   - Bo Wang
   - Yoshua Bengio
-date: 2023-01-01
+date: 2023-12-10
 tags:
   - GFlowNet
   - GRN Inference

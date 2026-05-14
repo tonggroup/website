@@ -9,6 +9,16 @@ The site lists works from two sources that should stay aligned:
 
 When you add or change a paper, update the `.bib` entry and, if the paper should appear in the “Recent publications” grid or have its own detail page, add or edit the matching `.md` file (the file basename is used as the URL slug and should match the bibliography entry id where applicable). The script [`convert-publications.js`](convert-publications.js) in the repo root can help migrate content from another Astro site’s `content/publication` layout (expects network access to GitHub).
 
+### Publication `date` field
+
+Frontmatter `date:` is used for sorting and SEO. For **conference and workshop** papers it should reflect the approximate **venue date** (not the arXiv submission day unless the item is arXiv-only). After editing venues or arXiv links, run:
+
+```bash
+pnpm sync:pub-dates
+```
+
+This rewrites `date:` using [`src/utils/inferPublicationSortDate.ts`](src/utils/inferPublicationSortDate.ts) (primary venue before any “Also …” clause, conference month heuristics, arXiv YYMM from `urlPdf`, journals mid-year). Hand-set dates in the same calendar month as the inferred arXiv month are preserved when they are later in the month (e.g. a specific announcement day).
+
 ## Dynamic OG images (news)
 
 News posts can generate Open Graph PNGs at build time, which may fetch fonts from Google. Ensure the build environment allows outbound HTTPS to `fonts.googleapis.com` (or disable `dynamicOgImage` in [`src/config.ts`](src/config.ts) if you need fully offline builds).

@@ -9,7 +9,7 @@ authors:
   - Ronald Coifman
   - Guy Wolf
   - Smita Krishnaswamy
-date: 2021-01-01
+date: 2021-07-21
 tags:
   - OT
   - Optimal Transport

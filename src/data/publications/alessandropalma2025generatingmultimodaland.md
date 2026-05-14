@@ -8,7 +8,7 @@ authors:
   - Alexander Tong
   - Andrea Dittadi
   - Fabian Theis
-date: 2025-01-01
+date: 2025-05-07
 publication: "In *ICLR 2025*"
 ---
 

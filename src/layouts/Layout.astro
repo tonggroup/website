@@ -46,7 +46,19 @@ const canonicalURL =
 
 const socialImageURL = new URL(ogImage, Astro.url);
 
-const siteBase = new URL(SITE.website).origin;
+function siteOriginFromConfig(): string {
+  try {
+    return new URL(SITE.website).origin;
+  } catch {
+    return Astro.site ? new URL(Astro.site).origin : Astro.url.origin;
+  }
+}
+
+function safeDateForMeta(d: Date | undefined | null): d is Date {
+  return d !== undefined && d !== null && !Number.isNaN(d.getTime());
+}
+
+const siteBase = siteOriginFromConfig();
 const orgId = `${siteBase}/#organization`;
 
 function buildJsonLd(): Record<string, unknown> {
@@ -93,10 +105,10 @@ function buildJsonLd(): Record<string, unknown> {
           },
         ],
       };
-      if (pubDatetime) {
+      if (safeDateForMeta(pubDatetime)) {
         article.datePublished = pubDatetime.toISOString();
       }
-      if (modDatetime) {
+      if (safeDateForMeta(modDatetime)) {
         article.dateModified = modDatetime.toISOString();
       }
       return article;
@@ -125,10 +137,10 @@ function buildJsonLd(): Record<string, unknown> {
         url: canonicalURL.href,
         author: authors,
       };
-      if (pubDatetime) {
+      if (safeDateForMeta(pubDatetime)) {
         scholarly.datePublished = pubDatetime.toISOString();
       }
-      if (modDatetime) {
+      if (safeDateForMeta(modDatetime)) {
         scholarly.dateModified = modDatetime.toISOString();
       }
       return scholarly;
@@ -156,8 +168,8 @@ const structuredData = buildJsonLd();
 <!doctype html>
 <html
   dir={SITE.dir}
-  lang=`${SITE.lang ?? "en"}`
-  class={`${scrollSmooth && "scroll-smooth"}`}
+  lang={SITE.lang ?? "en"}
+  class:list={[{ "scroll-smooth": scrollSmooth }]}
 >
   <head>
     <meta charset="UTF-8" />
@@ -187,7 +199,7 @@ const structuredData = buildJsonLd();
 
     <!-- Article Published/Modified time -->
     {
-      pubDatetime && (
+      safeDateForMeta(pubDatetime) && (
         <meta
           property="article:published_time"
           content={pubDatetime.toISOString()}
@@ -195,7 +207,7 @@ const structuredData = buildJsonLd();
       )
     }
     {
-      modDatetime && (
+      safeDateForMeta(modDatetime) && (
         <meta
           property="article:modified_time"
           content={modDatetime.toISOString()}

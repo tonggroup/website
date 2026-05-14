@@ -10,7 +10,8 @@
     "astro": "astro",
     "format:check": "prettier --check .",
     "format": "prettier --write .",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "sync:pub-dates": "tsx scripts/apply-publication-dates.ts"
   },
   "dependencies": {
     "@astrojs/rss": "^4.0.14",
@@ -45,6 +46,7 @@
     "prettier": "^3.7.4",
     "prettier-plugin-astro": "^0.14.1",
     "prettier-plugin-tailwindcss": "^0.7.2",
+    "tsx": "^4.19.4",
     "typescript": "^5.9.3",
     "typescript-eslint": "^8.51.0"
   }

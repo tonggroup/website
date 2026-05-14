@@ -6,7 +6,7 @@ authors:
   - Guy Wolf
   - David van Dijk
   - Smita Krishnaswamy
-date: 2020-01-01
+date: 2020-07-21
 tags:
   - OT
   - Optimal Transport

@@ -6,7 +6,7 @@ authors:
   - Kincaid MacDonald
   - Smita Krishnaswamy
   - Guy Wolf
-date: 2021-01-01
+date: 2021-09-01
 tags:
   - Graph Signal Processing
   - Scattering

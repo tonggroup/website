@@ -1,36 +1,87 @@
 ---
-import { parseBibliography } from "@/utils/parseBibliography";
+import {
+  parseBibliography,
+  type ParsedCitation,
+} from "@/utils/parseBibliography";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import CitationList from "@/components/CitationList.astro";
 import { join } from "path";
+import { inferPublicationSortDate } from "@/utils/inferPublicationSortDate";
+import {
+  publicationVenueLabel,
+  publicationVenueToHtml,
+} from "@/utils/publicationVenue";
 
 const bibPath = join(process.cwd(), "src/data/publications.bib");
 const bibliography = await parseBibliography(bibPath);
 const publications = await getCollection("publications");
 
-// Sort publications by date in reverse chronological order (newest first)
-publications.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+function sortDateFromCitation(entry: ParsedCitation): Date {
+  const parts = entry.issued?.["date-parts"]?.[0] as number[] | undefined;
+  if (!parts?.length) return new Date(Date.UTC(1970, 0, 1));
+  const y = parts[0];
+  const mo = parts[1] ?? 6;
+  const d = parts[2] ?? 15;
+  return new Date(Date.UTC(y, mo - 1, d));
+}
+
+function sortDateForPubId(id: string): Date {
+  const pub = publications.find(p => p.id === id);
+  if (pub) {
+    return inferPublicationSortDate({
+      slug: pub.id,
+      publication: pub.data.publication,
+      urlPdf: pub.data.urlPdf,
+      existingDate: pub.data.date,
+    });
+  }
+  const entry = bibliography.entries.find(e => e.id === id);
+  return entry ? sortDateFromCitation(entry) : new Date(Date.UTC(1970, 0, 1));
+}
+
+publications.sort(
+  (a, b) => sortDateForPubId(b.id).getTime() - sortDateForPubId(a.id).getTime()
+);
 
 const publicationSlugs = new Set(publications.map(p => p.id));
-const publicationDates = new Map(publications.map(p => [p.id, p.data.date]));
 
-// Sort entries by date (newest first), using publication date if available, else year
-const sortedEntries = [...bibliography.entries].sort((a, b) => {
-  const dateA =
-    publicationDates.get(a.id) ||
-    new Date(a.issued?.["date-parts"]?.[0]?.[0] || 0, 0, 1);
-  const dateB =
-    publicationDates.get(b.id) ||
-    new Date(b.issued?.["date-parts"]?.[0]?.[0] || 0, 0, 1);
-  return dateB.getTime() - dateA.getTime();
-});
+const sortedEntries = [...bibliography.entries].sort(
+  (a, b) => sortDateForPubId(b.id).getTime() - sortDateForPubId(a.id).getTime()
+);
 
 const sortedBibliography = {
   ...bibliography,
   entries: sortedEntries,
 };
+
+const venueHtmlById = Object.fromEntries(
+  publications
+    .map(p => {
+      const label = publicationVenueLabel(p.data.publication, p.data.urlPdf);
+      return label ? [p.id, publicationVenueToHtml(label)] as const : null;
+    })
+    .filter((e): e is [string, string] => e !== null)
+);
+
+type PubDoc = (typeof publications)[number];
+const recentPublicationYearGroups: { year: number; pubs: PubDoc[] }[] = [];
+for (const pub of publications) {
+  const sortDate = inferPublicationSortDate({
+    slug: pub.id,
+    publication: pub.data.publication,
+    urlPdf: pub.data.urlPdf,
+    existingDate: pub.data.date,
+  });
+  const year = sortDate.getUTCFullYear();
+  const tail = recentPublicationYearGroups[recentPublicationYearGroups.length - 1];
+  if (!tail || tail.year !== year) {
+    recentPublicationYearGroups.push({ year, pubs: [pub] });
+  } else {
+    tail.pubs.push(pub);
+  }
+}
 ---
 
 <Layout
@@ -61,30 +112,60 @@ const sortedBibliography = {
         publications.length > 0 && (
           <section class="space-y-6">
             <h2 class="text-3xl font-bold">Recent Publications</h2>
-            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
-              {publications.map(pub => (
-                <article class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
-                  <h3 class="mb-2 text-lg font-semibold text-blue-600 dark:text-blue-400">
-                    <a href={`/publications/${pub.id}`}>{pub.data.title}</a>
+            <div class="space-y-10">
+              {recentPublicationYearGroups.map(({ year, pubs }) => (
+                <div class="space-y-4">
+                  <h3 class="border-b border-gray-200 pb-2 text-2xl font-semibold text-gray-800 dark:border-gray-600 dark:text-gray-100">
+                    {year}
                   </h3>
-                  <p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
-                    {pub.data.authors.join(", ")}
-                  </p>
-                  <p class="mb-2 text-xs text-gray-500 dark:text-gray-500">
-                    {pub.data.date.toLocaleDateString()}
-                  </p>
-                  {pub.data.abstract && (
-                    <p class="line-clamp-3 text-sm">{pub.data.abstract}</p>
-                  )}
-                  {pub.data.urlPdf && (
-                    <a
-                      href={pub.data.urlPdf}
-                      class="text-sm text-blue-600 dark:text-blue-400"
-                    >
-                      PDF
-                    </a>
-                  )}
-                </article>
+                  <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                    {pubs.map(pub => {
+                      const venueLabel = publicationVenueLabel(
+                        pub.data.publication,
+                        pub.data.urlPdf
+                      );
+                      return (
+                        <article class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800">
+                          <h4 class="mb-2 text-lg font-semibold text-blue-600 dark:text-blue-400">
+                            <a href={`/publications/${pub.id}`}>
+                              {pub.data.title}
+                            </a>
+                          </h4>
+                          <p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
+                            {pub.data.authors.join(", ")}
+                          </p>
+                          {
+                            venueLabel && (
+                              <p
+                                class="mb-2 line-clamp-2 text-sm text-gray-700 dark:text-gray-300"
+                                set:html={publicationVenueToHtml(venueLabel)}
+                              />
+                            )
+                          }
+                          <p class="mb-2 text-xs text-gray-500 dark:text-gray-500">
+                            {inferPublicationSortDate({
+                              slug: pub.id,
+                              publication: pub.data.publication,
+                              urlPdf: pub.data.urlPdf,
+                              existingDate: pub.data.date,
+                            }).toLocaleDateString()}
+                          </p>
+                          {pub.data.abstract && (
+                            <p class="line-clamp-3 text-sm">{pub.data.abstract}</p>
+                          )}
+                          {pub.data.urlPdf && (
+                            <a
+                              href={pub.data.urlPdf}
+                              class="text-sm text-blue-600 dark:text-blue-400"
+                            >
+                              PDF
+                            </a>
+                          )}
+                        </article>
+                      );
+                    })}
+                  </div>
+                </div>
               ))}
             </div>
           </section>
@@ -97,6 +178,7 @@ const sortedBibliography = {
         defaultFormat="apa"
         title="All Publications"
         publicationSlugs={publicationSlugs}
+        venueHtmlById={venueHtmlById}
       />
     </section>
   </Main>

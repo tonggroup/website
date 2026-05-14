@@ -7,9 +7,12 @@ interface Props {
   defaultFormat?: "apa" | "ieee" | "chicago";
   title?: string;
   publicationSlugs?: Set<string>;
+  /** HTML venue line keyed by publication collection id (when a detail page exists). */
+  venueHtmlById?: Record<string, string>;
 }
 
-const { bibliography, defaultFormat = "apa", title, publicationSlugs } = Astro.props;
+const { bibliography, defaultFormat = "apa", title, publicationSlugs, venueHtmlById } =
+  Astro.props;
 ---
 
 <section class="citations-section space-y-6">
@@ -77,6 +80,7 @@ const { bibliography, defaultFormat = "apa", title, publicationSlugs } = Astro.p
             formatted={bibliography.formatted[entry.id]}
             defaultFormat={defaultFormat}
             publicationSlug={publicationSlugs?.has(entry.id) ? entry.id : undefined}
+            venueHtml={venueHtmlById?.[entry.id]}
           />
         </div>
       ))

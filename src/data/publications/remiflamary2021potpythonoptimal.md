@@ -23,7 +23,7 @@ authors:
   - Romain Tavenard
   - Alexander Tong
   - Titouan Vayer
-date: 2021-01-01
+date: 2021-06-15
 publication: "In *JMLR*"
 abstract: >
   Optimal transport has recently been reintroduced to the machine learning community thanks in part to novel efficient optimization procedures allowing for medium to large scale applications. We propose a Python toolbox that implements several key optimal transport ideas for the machine learning community. The toolbox contains implementations of a number of founding works of OT for machine learning such as Sinkhorn algorithm and Wasserstein barycenters, but also provides generic solvers that can be used for conducting novel fundamental research. This toolbox, named POT for Python Optimal Transport, is open source with an MIT license.

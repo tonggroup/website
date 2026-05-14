@@ -9,7 +9,7 @@ authors:
   - Maximilian Nickel
   - Ian Adelstein
   - Smita Krishnaswamy
-date: 2023-01-01
+date: 2023-07-21
 publication: "In *ICML*"
 urlPdf: https://proceedings.mlr.press/v202/fasina23a.html
 links:

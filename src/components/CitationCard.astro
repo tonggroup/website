@@ -9,9 +9,17 @@ interface Props {
   formatted: FormattedCitations;
   defaultFormat?: "apa" | "ieee" | "chicago";
   publicationSlug?: string;
+  /** Rendered venue HTML (from publication markdown), when available. */
+  venueHtml?: string;
 }
 
-const { citation, formatted, defaultFormat = "apa", publicationSlug } = Astro.props;
+const {
+  citation,
+  formatted,
+  defaultFormat = "apa",
+  publicationSlug,
+  venueHtml,
+} = Astro.props;
 
 // Extract year from citation
 const year = citation.issued?.["date-parts"]?.[0]?.[0];
@@ -42,6 +50,14 @@ const doiLink =
           <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
             {authors}
           </p>
+        )
+      }
+      {
+        venueHtml && (
+          <p
+            class="line-clamp-2 text-sm text-gray-700 dark:text-gray-200"
+            set:html={venueHtml}
+          />
         )
       }
       {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
@@ -78,6 +94,14 @@ const doiLink =
           <p class="line-clamp-2 text-sm text-gray-600 dark:text-gray-400">
             {authors}
           </p>
+        )
+      }
+      {
+        venueHtml && (
+          <p
+            class="line-clamp-2 text-sm text-gray-700 dark:text-gray-200"
+            set:html={venueHtml}
+          />
         )
       }
       {year && <p class="text-xs text-gray-500 dark:text-gray-500">{year}</p>}
