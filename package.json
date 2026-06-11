@@ -11,6 +11,7 @@
     "format:check": "prettier --check .",
     "format": "prettier --write .",
     "lint": "eslint .",
+    "fetch:scholar": "tsx scripts/fetch-scholar.ts",
     "sync:pub-dates": "tsx scripts/apply-publication-dates.ts"
   },
   "dependencies": {
