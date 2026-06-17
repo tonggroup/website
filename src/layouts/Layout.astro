@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import { ClientRouter } from "astro:transitions";
 import { PUBLIC_GOOGLE_SITE_VERIFICATION } from "astro:env/client";
 import { SITE } from "@/config";
+import Header from "@/components/Header.astro";
 import "@/styles/global.css";
 
 type JsonLdSchema = "homepage" | "webpage" | "newsArticle" | "scholarlyArticle";
@@ -294,6 +295,7 @@ const structuredData = buildJsonLd();
     </script>
   </head>
   <body>
+    <Header />
     <slot />
 
     <!-- Load full theme logic -->

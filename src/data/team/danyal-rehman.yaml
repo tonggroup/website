@@ -1,8 +1,14 @@
 name: Danyal Rehman
-role: Visiting Student
+role: Visiting Researcher
+photo: ../../assets/team/danyal-rehman.jpg
 bio: >
-  Danyal is a visiting student working on generative models and machine learning for scientific applications.
-email: danyal.rehman@research.example.org
+  Danyal is a Banting Postdoctoral Researcher at Mila – Québec AI Institute (advised by Yoshua Bengio) and a visiting researcher with the group, developing diffusion-, flow-, and autoregressive generative models for AI for science. He completed his PhD at MIT, with recent work on Boltzmann generators for molecular sampling (RegFlow, FALCON, Autoregressive Boltzmann Generators).
+email: danyal.rehman@mila.quebec
+github: danyalrehman
+twitter: danyalrehman17
+linkedin: danyalrehman
+website: https://danyalrehman.com/
 specialization:
   - Generative Models
+  - Boltzmann Generators
   - Scientific ML

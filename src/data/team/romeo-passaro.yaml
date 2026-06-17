@@ -1,13 +1,8 @@
 name: Romeo Passaro
 role: PhD Student
+photo: ../../assets/team/romeo-passaro.jpg
 bio: >
-  Romeo researches probabilistic modeling and optimization in biomedical contexts. He is particularly interested in transport-based algorithms for cellular dynamics.
-email: romeo.passaro@aithyra.at
+  Romeo is a Predoctoral Fellow at Aithyra, working on geometric and physics-inspired machine learning for biomedical applications.
+email: rpassaro@aithyra.at
 github: romeopassaro
-twitter: n/a
-linkedin: romeo-passaro
 website: https://github.com/romeopassaro
-specialization:
-  - Probabilistic Modeling
-  - Optimal Transport
-  - Cellular Dynamics

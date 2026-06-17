@@ -1,8 +1,14 @@
 name: Luka Mucko
 role: Visiting Student
+photo: ../../assets/team/luka-mucko.jpg
 bio: >
-  Luka is a visiting student interested in deep learning and its applications to computational problems.
-email: luka.mucko@research.example.org
+  Luka is a scientific machine learning researcher and visiting student with the group, working on generative models for biological systems and AI for medical sciences. He holds a BSc and MSc in Computing/Data Science from the University of Zagreb, with interests in sampling, measure transport, diffusion, and flow-based models applied to chemistry and biology.
+email: lmucko@aithyra.at
+github: LukaMucko
+website: https://lukamucko.github.io/
 specialization:
-  - Deep Learning
-  - Computational Methods
+  - Generative Models
+  - Flow Matching
+  - Crystal Structure Prediction
+  - Sampling & Measure Transport
+  - Scientific Deep Learning

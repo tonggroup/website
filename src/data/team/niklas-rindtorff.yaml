@@ -4,11 +4,12 @@ photo: https://aithyra.at/fileadmin/_processed_/7/3/csm_NiklasRindtorff-3_3ac2ab
 bio: >
   Niklas researches generative models and computational methods for biological imaging and molecular design. His work focuses on bridging deep learning with structural biology applications.
 email: niklas.rindtorff@aithyra.at
-github: niklasrindtorff
-twitter: n/a
-linkedin: niklas-rindtorff
-website: https://github.com/niklasrindtorff
+github: NiklasTR
+twitter: Niklas_TR
+linkedin: niklas-rindtorff-b34149121
+website: https://rindtorff.xyz
 specialization:
   - Generative Modeling
-  - Structural Biology
-  - Molecular Design
+  - Protein & Binder Design
+  - Protein Structure ML
+  - Computational Cancer Biology

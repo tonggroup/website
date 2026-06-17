@@ -3,6 +3,12 @@ import { getCollection } from "astro:content";
 import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
+import { resolveAuthorSlug, buildAuthorLinkMap } from "@/utils/authorLink";
+import { inferPublicationSortDate } from "@/utils/inferPublicationSortDate";
+import {
+  publicationVenueLabel,
+  publicationVenueToHtml,
+} from "@/utils/publicationVenue";
 
 const { slug } = Astro.params;
 const team = await getCollection("team");
@@ -23,6 +29,31 @@ if (!member) {
 }
 
 const { data } = member;
+
+// Find lab publications this member co-authored.
+const publications = await getCollection("publications");
+const authorLinkMap = buildAuthorLinkMap(team);
+const memberPubs = publications
+  .filter(pub =>
+    pub.data.authors.some(
+      author => resolveAuthorSlug(author, authorLinkMap) === member.id
+    )
+  )
+  .sort(
+    (a, b) =>
+      inferPublicationSortDate({
+        slug: b.id,
+        publication: b.data.publication,
+        urlPdf: b.data.urlPdf,
+        existingDate: b.data.date,
+      }).getTime() -
+      inferPublicationSortDate({
+        slug: a.id,
+        publication: a.data.publication,
+        urlPdf: a.data.urlPdf,
+        existingDate: a.data.date,
+      }).getTime()
+  );
 ---
 
 <Layout
@@ -140,6 +171,62 @@ const { data } = member;
           }
         </div>
       </div>
+
+      {
+        memberPubs.length > 0 && (
+          <div
+            class="rounded-lg border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-700 dark:bg-gray-800"
+          >
+            <h2 class="text-xl font-semibold">Publications</h2>
+            <ul class="mt-4 space-y-4">
+              {memberPubs.map(pub => {
+                const venueLabel = publicationVenueLabel(
+                  pub.data.publication,
+                  pub.data.urlPdf
+                );
+                const sortDate = inferPublicationSortDate({
+                  slug: pub.id,
+                  publication: pub.data.publication,
+                  urlPdf: pub.data.urlPdf,
+                  existingDate: pub.data.date,
+                });
+                return (
+                  <li class="border-b border-gray-100 pb-4 last:border-0 last:pb-0 dark:border-gray-700">
+                    <h3 class="text-base font-semibold text-blue-600 dark:text-blue-400">
+                      <a href={`/publications/${pub.id}`}>{pub.data.title}</a>
+                    </h3>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
+                      {pub.data.authors.map((author: string, i: number) => (
+                        <>
+                          {i > 0 && ", "}
+                          {(() => {
+                            const authorSlug = resolveAuthorSlug(author, authorLinkMap);
+                            return authorSlug
+                              ? <a href={`/team/${authorSlug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
+                              : author;
+                          })()}
+                        </>
+                      ))}
+                    </p>
+                    {venueLabel && (
+                      <p
+                        class="mt-1 text-sm text-gray-700 dark:text-gray-300"
+                        set:html={publicationVenueToHtml(venueLabel)}
+                      />
+                    )}
+                    <p class="mt-1 text-xs text-gray-500 dark:text-gray-500">
+                      {sortDate.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                      })}
+                    </p>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        )
+      }
     </section>
   </Main>
 </Layout>

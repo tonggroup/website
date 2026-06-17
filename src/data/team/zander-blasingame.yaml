@@ -5,7 +5,12 @@ bio: >
   I am a postdoctoral fellow at Aithyra in Vienna, Austria working with Alex Tong where I study generative models for life sciences.
 email: zblasingame@aithyra.at
 github: zblasingame
+twitter: zwblasingame
 linkedin: zander-blasingame
 website: https://zblasingame.github.io/
 specialization:
   - Generative Modeling
+  - Neural Differential Equations
+  - ODE/SDE Solvers
+  - AI for Science
+  - Biometrics & Face Morphing

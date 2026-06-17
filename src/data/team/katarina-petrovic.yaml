@@ -1,10 +1,11 @@
 name: Katarina Petrović
 role: PhD Student
+photo: ../../assets/team/katarina-petrovic.png
 bio: >
   Katarina works on flow-based generative models, including flow matching and diffusion, with a focus on dynamics in science—such as trajectory inference for single cells and non-gradient field dynamics (e.g. Curly Flow Matching).
 email: katarina.petrovic@aithyra.at
 github: kpetrovicc
-twitter: n/a
+twitter: kpetrovvic
 linkedin: kpetrovvic
 website: https://kpetrovicc.github.io/
 specialization:

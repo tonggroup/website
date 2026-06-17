@@ -8,6 +8,7 @@ import {
   publicationVenueLabel,
   publicationVenueToHtml,
 } from "@/utils/publicationVenue";
+import { buildAuthorLinkMap, resolveAuthorSlug } from "@/utils/authorLink";
 
 export async function getStaticPaths() {
   const publications = await getCollection("publications");
@@ -24,6 +25,9 @@ interface Link {
 
 const { pub } = Astro.props;
 const { data, body } = pub;
+
+const team = await getCollection("team");
+const authorLinkMap = buildAuthorLinkMap(team);
 
 const effectiveDate = inferPublicationSortDate({
   slug: pub.id,
@@ -88,7 +92,17 @@ const venueDisplay = publicationVenueLabel(data.publication, data.urlPdf);
         <div class="mt-4">
           <h2 class="text-lg font-semibold">Authors</h2>
           <p class="mt-2 text-gray-700 dark:text-gray-300">
-            {data.authors.join(", ")}
+            {data.authors.map((author: string, i: number) => (
+              <>
+                {i > 0 && ", "}
+                {(() => {
+                  const slug = resolveAuthorSlug(author, authorLinkMap);
+                  return slug
+                    ? <a href={`/team/${slug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
+                    : author;
+                })()}
+              </>
+            ))}
           </p>
         </div>
 

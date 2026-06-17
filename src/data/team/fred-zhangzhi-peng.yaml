@@ -1,0 +1,16 @@
+name: Fred Zhangzhi Peng
+role: PhD Student
+photo: ../../assets/team/fred-zhangzhi-peng.png
+bio: >
+  Fred Zhangzhi Peng is a third-year PhD student at Duke University, where he works with Anru Zhang on statistical machine learning and with Alexander Tong (AITHYRA) on generative models. His research focuses on diffusion and discrete generative models, with applications spanning language models and protein design.
+email: zhangzhi.peng@duke.edu
+github: pengzhangzhi
+twitter: pengzhangzhi1
+linkedin: fred-zhangzhi-peng-90092b273
+website: https://pengzhangzhi.github.io/home
+specialization:
+  - Discrete Diffusion
+  - Diffusion Language Models
+  - Generative Modeling
+  - Protein Design
+  - Machine Learning

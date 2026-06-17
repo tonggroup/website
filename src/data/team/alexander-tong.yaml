@@ -6,19 +6,18 @@ bio: >
   the intersection of machine learning and life sciences led by Michael
   Bronstein and funded by the Boehringer Ingelheim Foundation. He works on
   generative modeling, deep learning, and optimal transport, with applications
-  to cell and molecular biology. Previously, he was an assistant professor at
-  Duke University and a postdoc at Mila with Yoshua Bengio. He received his PhD
-  from Yale University in 2021, advised by Smita Krishnaswamy.
+  to cell and molecular biology. He received his PhD from Yale University in
+  2021, advised by Smita Krishnaswamy, after which he was a postdoc at Mila with
+  Yoshua Bengio and then an assistant professor at Duke University.
 email: atong@aithyra.at
 github: atong01
 twitter: alexandertong7
-linkedin: alexander-tong-84ab791a1
+linkedin: atong01
 website: https://alextong.net
 specialization:
   - Generative Modeling
-  - Flow Models
+  - Flow Matching
   - Optimal Transport
-  - Protein Design
   - Single Cell Dynamics
-  - Machine Learning
-  - Deep Learning
+  - Boltzmann Generators & Sampling
+  - Protein Design

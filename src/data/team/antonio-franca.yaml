@@ -4,11 +4,12 @@ photo: https://aithyra.at/fileadmin/_processed_/0/e/csm_AntonioFranca-2_8fbd8429
 bio: >
   Antonio focuses on diffusion model training strategies and efficient inference for scientific applications. His research covers scalable approximate inference and biologically realistic generative modeling.
 email: antonio.franca@aithyra.at
-github: antoniofranca
-twitter: n/a
+github: antoniofrancaib
+twitter: antoniofrancaib
 linkedin: antonio-franca
-website: https://github.com/antoniofranca
+website: https://www.antoniofranca.me/
 specialization:
-  - Diffusion Models
-  - Efficient Inference
-  - Scientific Machine Learning
+  - Generative Modeling
+  - Diffusion & Flow Matching
+  - Efficient Sampling
+  - Neural Differential Equations

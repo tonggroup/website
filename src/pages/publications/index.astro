@@ -13,10 +13,13 @@ import {
   publicationVenueLabel,
   publicationVenueToHtml,
 } from "@/utils/publicationVenue";
+import { buildAuthorLinkMap, resolveAuthorSlug } from "@/utils/authorLink";
 
 const bibPath = join(process.cwd(), "src/data/publications.bib");
 const bibliography = await parseBibliography(bibPath);
 const publications = await getCollection("publications");
+const team = await getCollection("team");
+const authorLinkMap = buildAuthorLinkMap(team);
 
 function sortDateFromCitation(entry: ParsedCitation): Date {
   const parts = entry.issued?.["date-parts"]?.[0] as number[] | undefined;
@@ -93,20 +96,6 @@ for (const pub of publications) {
     pageDesc="Selected publications from Tong Group"
   >
     <section class="space-y-8">
-      <!-- Citation Statistics -->
-      <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
-        <div
-          class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800"
-        >
-          <p class="text-sm text-gray-600 dark:text-gray-400">
-            Total Publications
-          </p>
-          <p class="text-3xl font-bold text-blue-600 dark:text-blue-400">
-            {bibliography.totalCount}
-          </p>
-        </div>
-      </div>
-
       <!-- Publications from MD files -->
       {
         publications.length > 0 && (
@@ -132,7 +121,17 @@ for (const pub of publications) {
                             </a>
                           </h4>
                           <p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
-                            {pub.data.authors.join(", ")}
+                            {pub.data.authors.map((author: string, i: number) => (
+                              <>
+                                {i > 0 && ", "}
+                                {(() => {
+                                  const slug = resolveAuthorSlug(author, authorLinkMap);
+                                  return slug
+                                    ? <a href={`/team/${slug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
+                                    : author;
+                                })()}
+                              </>
+                            ))}
                           </p>
                           {
                             venueLabel && (
