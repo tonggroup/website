@@ -5,14 +5,12 @@ description: Join the group as a postdoc to lead independent research projects i
 requirements:
   - PhD (completed or near completion) in machine learning, computer science, physics, applied math, or a related field
   - A strong publication record in generative modeling, probabilistic ML, optimal transport, or adjacent areas
-  - Programming proficiency (Python; PyTorch or JAX)
   - Ability to mentor junior students and contribute to collaborative projects
 offers:
   - Competitive postdoctoral salary with benefits
   - Flexible research direction within the group's themes
   - Access to GPU compute and cross-disciplinary collaborators at Aithyra
-  - Support for developing an independent research profile and future faculty applications
-  - Conference travel budget
+  - Support for developing an independent research profile and future research roles
 status: open
 sortOrder: 2
 ---

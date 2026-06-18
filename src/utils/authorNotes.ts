@@ -3,42 +3,23 @@
  *
  * The `authorNotes` field in publication frontmatter maps author names (or the
  * special `admin` alias for Alexander Tong) to a note string. Known note
- * strings are mapped to a per-author symbol (`*`, `†`) and a footnote that is
- * rendered once below the author list.
+ * strings are mapped to a per-author symbol:
  *
- * Supported note values (matched exactly):
- *   - "Equal Contribution"            -> `*`  "* These authors contributed equally"
- *   - "Equal advising"                -> `†`  "† These authors jointly supervised this work"
- *   - "Authors ordered alphabetically"-> ""   "Authors listed alphabetically"
+ *   - "Equal Contribution"            -> `*` (co-first, at start of list)
+ *                                     -> `†` (co-last, at end of list)
+ *   - "Equal advising"                -> `†`
+ *   - "Authors ordered alphabetically"-> ""
  *
- * Unknown note values are ignored (no symbol, no footnote) so partial data
- * never breaks rendering.
+ * The position rule: when the contiguous group of "Equal Contribution" authors
+ * includes the LAST author of the list, that group uses `†` (daggers) instead
+ * of `*` (stars). This matches the common academic convention where co-first
+ * authors get `*` and co-last / co-senior authors get `†`.
+ *
+ * Unknown note values are ignored (no symbol) so partial data never breaks
+ * rendering.
  */
 
 export const ADMIN_NAME = "Alexander Tong";
-
-export interface AuthorNoteMeta {
-  /** Symbol appended to each marked author name (e.g. "*", "†"). Empty if none. */
-  symbol: string;
-  /** Footnote text rendered once below the author list. */
-  footnote: string;
-}
-
-/** Map of known note-string values to their symbol + footnote metadata. */
-export const AUTHOR_NOTE_META: Record<string, AuthorNoteMeta> = {
-  "Equal Contribution": {
-    symbol: "*",
-    footnote: "* These authors contributed equally",
-  },
-  "Equal advising": {
-    symbol: "†",
-    footnote: "† These authors jointly supervised this work",
-  },
-  "Authors ordered alphabetically": {
-    symbol: "",
-    footnote: "Authors listed alphabetically",
-  },
-};
 
 /**
  * Look up the note string for an author, handling the `admin` alias for
@@ -53,43 +34,58 @@ function noteForAuthor(
   if (author === ADMIN_NAME && authorNotes["admin"]) {
     return authorNotes["admin"];
   }
-  // Direct name match (takes precedence over admin for non-Alex authors,
-  // and also for Alex if a non-admin key is set explicitly).
+  // Direct name match.
   if (authorNotes[author]) return authorNotes[author];
-  // Fallback to admin alias for Alex when only admin is set.
-  if (author === ADMIN_NAME) return authorNotes["admin"];
   return undefined;
+}
+
+/**
+ * Check if an author index falls within the contiguous "Equal Contribution"
+ * group at the END of the author list. If the last author has an
+ * "Equal Contribution" note, walk backwards to find the contiguous run and
+ * check membership.
+ */
+function isInLastEqualGroup(
+  authorIndex: number,
+  authors: string[],
+  authorNotes?: Record<string, string>
+): boolean {
+  const lastIndex = authors.length - 1;
+  const lastNote = noteForAuthor(authors[lastIndex], authorNotes);
+  if (lastNote !== "Equal Contribution") return false;
+
+  let groupStart = lastIndex;
+  while (
+    groupStart > 0 &&
+    noteForAuthor(authors[groupStart - 1], authorNotes) === "Equal Contribution"
+  ) {
+    groupStart--;
+  }
+  return authorIndex >= groupStart && authorIndex <= lastIndex;
 }
 
 /**
  * Return the symbol (e.g. "*", "†") to append to an author's name, or an empty
  * string if the author has no known equal-contribution note.
+ *
+ * Position-aware: "Equal Contribution" authors at the end of the list get `†`,
+ * all others get `*`. "Equal advising" always gets `†`.
  */
 export function getAuthorSymbol(
   author: string,
+  authorIndex: number,
+  authors: string[],
   authorNotes?: Record<string, string>
 ): string {
   const note = noteForAuthor(author, authorNotes);
   if (!note) return "";
-  return AUTHOR_NOTE_META[note]?.symbol ?? "";
-}
 
-/**
- * Return the ordered, de-duplicated list of footnote strings for a publication,
- * based on the set of note values present in `authorNotes`.
- */
-export function getAuthorFootnotes(
-  authorNotes?: Record<string, string>
-): string[] {
-  if (!authorNotes) return [];
-  const seen = new Set<string>();
-  const footnotes: string[] = [];
-  for (const note of Object.values(authorNotes)) {
-    const meta = AUTHOR_NOTE_META[note];
-    if (meta && meta.footnote && !seen.has(meta.footnote)) {
-      seen.add(meta.footnote);
-      footnotes.push(meta.footnote);
-    }
+  if (note === "Equal Contribution") {
+    return isInLastEqualGroup(authorIndex, authors, authorNotes) ? "†" : "*";
   }
-  return footnotes;
+  if (note === "Equal advising") {
+    return "†";
+  }
+  // "Authors ordered alphabetically" and unknown notes -> no symbol.
+  return "";
 }

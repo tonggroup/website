@@ -1,6 +1,6 @@
 ---
 author: Alexander Tong
-pubDatetime: 2024-09-01T09:00:00.000Z
+pubDatetime: 2025-09-01T09:00:00.000Z
 title: Joining Aithyra as a Principal Investigator
 tags:
   - news

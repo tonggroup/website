@@ -1,5 +1,5 @@
 ---
-import { getAuthorSymbol, getAuthorFootnotes } from "@/utils/authorNotes";
+import { getAuthorSymbol } from "@/utils/authorNotes";
 import {
   resolveAuthorSlug,
   type AuthorLinkMap,
@@ -20,22 +20,13 @@ const {
   class: className = "",
 } = Astro.props;
 
-const footnotes = getAuthorFootnotes(authorNotes);
-
 // Pre-compute per-author render nodes so the template has no multi-line
 // fragment whitespace leaking between authors and commas.
 const items = authors.map((author: string, i: number) => {
   const slug = resolveAuthorSlug(author, authorLinkMap);
-  const symbol = getAuthorSymbol(author, authorNotes);
+  const symbol = getAuthorSymbol(author, i, authors, authorNotes);
   return { i, slug, symbol, author };
 });
 ---
 
 <p class={`text-sm text-gray-600 dark:text-gray-400 ${className}`}>{items.map(({ i, slug, symbol, author }) => (slug ? <><span>{i > 0 && ", "}</span><a href={`/team/${slug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}{symbol && <sup>{symbol}</sup>}</a></> : <><span>{i > 0 && ", "}</span><span>{author}{symbol && <sup>{symbol}</sup>}</span></>))}</p>
-{
-  footnotes.length > 0 && (
-    <p class="mt-1 text-xs text-gray-500 dark:text-gray-500">
-      {footnotes.join(". ")}.
-    </p>
-  )
-}

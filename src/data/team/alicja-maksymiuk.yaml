@@ -2,7 +2,7 @@ name: Alicja Maksymiuk
 role: PhD Student
 photo: ../../assets/team/alicja-maksymiuk.jpg
 bio: >
-  Alicja (Ala) Maksymiuk is a DPhil student at the University of Oxford working on generative machine learning for drug discovery, with a focus on molecule generation. Her recent work introduces topological-guidance methods for steering diffusion-based generative models toward macrocyclic drug candidates (MacroGuide). She collaborates with the groups of Alexander Tong, Michael Bronstein, and İsmail İlkan Ceylan, bridging geometric and topological deep learning with structure-based molecular design.
+  Alicja (Ala) Maksymiuk is a DPhil student at the University of Oxford working on generative machine learning for drug discovery, with a focus on molecule generation. Her recent work introduces topological-guidance methods for steering diffusion-based generative models toward macrocyclic drug candidates (MacroGuide).
 linkedin: alicja-maksymiuk
 website: https://scholar.google.com/citations?user=MCvT1_wAAAAJ
 specialization:
@@ -14,4 +14,4 @@ specialization:
 coSupervisors:
   - Michael Bronstein
   - İsmail Ceylan
-  - Fernando Duarte
+  - Fernanda Duarte
