@@ -1,71 +1,33 @@
 ---
-import {
-  parseBibliography,
-  type ParsedCitation,
-} from "@/utils/parseBibliography";
 import { getCollection } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
-import CitationList from "@/components/CitationList.astro";
-import { join } from "path";
 import { inferPublicationSortDate } from "@/utils/inferPublicationSortDate";
 import {
   publicationVenueLabel,
   publicationVenueToHtml,
 } from "@/utils/publicationVenue";
-import { buildAuthorLinkMap, resolveAuthorSlug } from "@/utils/authorLink";
+import { buildAuthorLinkMap } from "@/utils/authorLink";
+import AuthorList from "@/components/AuthorList.astro";
 
-const bibPath = join(process.cwd(), "src/data/publications.bib");
-const bibliography = await parseBibliography(bibPath);
 const publications = await getCollection("publications");
 const team = await getCollection("team");
 const authorLinkMap = buildAuthorLinkMap(team);
 
-function sortDateFromCitation(entry: ParsedCitation): Date {
-  const parts = entry.issued?.["date-parts"]?.[0] as number[] | undefined;
-  if (!parts?.length) return new Date(Date.UTC(1970, 0, 1));
-  const y = parts[0];
-  const mo = parts[1] ?? 6;
-  const d = parts[2] ?? 15;
-  return new Date(Date.UTC(y, mo - 1, d));
-}
-
-function sortDateForPubId(id: string): Date {
-  const pub = publications.find(p => p.id === id);
-  if (pub) {
-    return inferPublicationSortDate({
-      slug: pub.id,
-      publication: pub.data.publication,
-      urlPdf: pub.data.urlPdf,
-      existingDate: pub.data.date,
-    });
-  }
-  const entry = bibliography.entries.find(e => e.id === id);
-  return entry ? sortDateFromCitation(entry) : new Date(Date.UTC(1970, 0, 1));
-}
-
 publications.sort(
-  (a, b) => sortDateForPubId(b.id).getTime() - sortDateForPubId(a.id).getTime()
-);
-
-const publicationSlugs = new Set(publications.map(p => p.id));
-
-const sortedEntries = [...bibliography.entries].sort(
-  (a, b) => sortDateForPubId(b.id).getTime() - sortDateForPubId(a.id).getTime()
-);
-
-const sortedBibliography = {
-  ...bibliography,
-  entries: sortedEntries,
-};
-
-const venueHtmlById = Object.fromEntries(
-  publications
-    .map(p => {
-      const label = publicationVenueLabel(p.data.publication, p.data.urlPdf);
-      return label ? [p.id, publicationVenueToHtml(label)] as const : null;
-    })
-    .filter((e): e is [string, string] => e !== null)
+  (a, b) =>
+    inferPublicationSortDate({
+      slug: b.id,
+      publication: b.data.publication,
+      urlPdf: b.data.urlPdf,
+      existingDate: b.data.date,
+    }).getTime() -
+    inferPublicationSortDate({
+      slug: a.id,
+      publication: a.data.publication,
+      urlPdf: a.data.urlPdf,
+      existingDate: a.data.date,
+    }).getTime()
 );
 
 type PubDoc = (typeof publications)[number];
@@ -120,19 +82,12 @@ for (const pub of publications) {
                               {pub.data.title}
                             </a>
                           </h4>
-                          <p class="mb-2 text-sm text-gray-600 dark:text-gray-400">
-                            {pub.data.authors.map((author: string, i: number) => (
-                              <>
-                                {i > 0 && ", "}
-                                {(() => {
-                                  const slug = resolveAuthorSlug(author, authorLinkMap);
-                                  return slug
-                                    ? <a href={`/team/${slug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
-                                    : author;
-                                })()}
-                              </>
-                            ))}
-                          </p>
+                          <AuthorList
+                            authors={pub.data.authors}
+                            authorNotes={pub.data.authorNotes}
+                            authorLinkMap={authorLinkMap}
+                            class="mb-2"
+                          />
                           {
                             venueLabel && (
                               <p
@@ -170,15 +125,6 @@ for (const pub of publications) {
           </section>
         )
       }
-
-      <!-- Citation List Component -->
-      <CitationList
-        bibliography={sortedBibliography}
-        defaultFormat="apa"
-        title="All Publications"
-        publicationSlugs={publicationSlugs}
-        venueHtmlById={venueHtmlById}
-      />
     </section>
   </Main>
 </Layout>

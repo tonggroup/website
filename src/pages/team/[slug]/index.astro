@@ -4,6 +4,7 @@ import { Image } from "astro:assets";
 import Layout from "@/layouts/Layout.astro";
 import Main from "@/layouts/Main.astro";
 import { resolveAuthorSlug, buildAuthorLinkMap } from "@/utils/authorLink";
+import AuthorList from "@/components/AuthorList.astro";
 import { inferPublicationSortDate } from "@/utils/inferPublicationSortDate";
 import {
   publicationVenueLabel,
@@ -138,6 +139,19 @@ const memberPubs = publications
           )
         }
 
+        {
+          data.coSupervisors && data.coSupervisors.length > 0 && (
+            <div class="mt-4">
+              <h3 class="text-md font-semibold">
+                {data.role.toLowerCase().includes("visiting") ? "Primary supervisor" : "Co-supervisors"}
+              </h3>
+              <p class="mt-1 text-sm text-gray-600 dark:text-gray-300">
+                {data.coSupervisors.join(", ")}
+              </p>
+            </div>
+          )
+        }
+
         <div class="mt-6 flex flex-wrap gap-2">
           {
             data.github && (
@@ -195,19 +209,12 @@ const memberPubs = publications
                     <h3 class="text-base font-semibold text-blue-600 dark:text-blue-400">
                       <a href={`/publications/${pub.id}`}>{pub.data.title}</a>
                     </h3>
-                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                      {pub.data.authors.map((author: string, i: number) => (
-                        <>
-                          {i > 0 && ", "}
-                          {(() => {
-                            const authorSlug = resolveAuthorSlug(author, authorLinkMap);
-                            return authorSlug
-                              ? <a href={`/team/${authorSlug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
-                              : author;
-                          })()}
-                        </>
-                      ))}
-                    </p>
+                    <AuthorList
+                      authors={pub.data.authors}
+                      authorNotes={pub.data.authorNotes}
+                      authorLinkMap={authorLinkMap}
+                      class="mt-1"
+                    />
                     {venueLabel && (
                       <p
                         class="mt-1 text-sm text-gray-700 dark:text-gray-300"

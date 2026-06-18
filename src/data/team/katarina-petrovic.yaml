@@ -12,3 +12,6 @@ specialization:
   - Flow Matching
   - Generative Modeling
   - Dynamics and Trajectory Inference
+coSupervisors:
+  - Michael Bronstein
+  - İsmail Ceylan

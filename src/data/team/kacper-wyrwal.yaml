@@ -1,0 +1,17 @@
+name: Kacper Wyrwal
+role: PhD Student
+bio: >
+  Kacper joins the group as a PhD student at the University of Oxford in
+  fall 2026. He is co-supervised with Michael Bronstein and Alexander Tong,
+  and is a recipient of the G-Research Graduate Scholarship. His research
+  spans machine learning, including topological flow matching and Gaussian
+  processes on manifolds.
+website: https://scholar.google.com/citations?user=VehPgN8AAAAJ&hl=en
+specialization:
+  - Flow Matching
+  - Gaussian Processes
+  - Topological Deep Learning
+coSupervisors:
+  - Michael Bronstein
+joined: Fall 2026
+future: true

@@ -12,3 +12,5 @@ specialization:
   - Amortized Sampling
   - Normalizing Flows
   - Equilibrium Inference
+coSupervisors:
+  - Michael Bronstein

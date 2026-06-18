@@ -8,6 +8,9 @@ github: pengzhangzhi
 twitter: pengzhangzhi1
 linkedin: fred-zhangzhi-peng-90092b273
 website: https://pengzhangzhi.github.io/home
+coSupervisors:
+  - Anru R. Zhang
+  - Christian Dallago
 specialization:
   - Discrete Diffusion
   - Diffusion Language Models

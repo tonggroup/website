@@ -6,6 +6,8 @@ export const NEWS_PATH = "src/data/news";
 export const TEAM_PATH = "src/data/team";
 export const RESEARCH_PATH = "src/data/research";
 export const PUBLICATIONS_PATH = "src/data/publications";
+export const JOIN_ROLES_PATH = "src/data/join/roles";
+export const JOIN_FAQ_PATH = "src/data/join/faq";
 
 const news = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${NEWS_PATH}` }),
@@ -40,6 +42,12 @@ const team = defineCollection({
       linkedin: z.string().optional(),
       website: z.string().optional(),
       specialization: z.array(z.string()).optional(),
+      alumni: z.boolean().optional().default(false),
+      future: z.boolean().optional().default(false),
+      currentPosition: z.string().optional(),
+      joined: z.string().optional(),
+      recruitingBlurb: z.string().optional(),
+      coSupervisors: z.array(z.string()).optional(),
     }),
 });
 
@@ -97,4 +105,34 @@ const publications = defineCollection({
     }),
 });
 
-export const collections = { news, team, research, publications };
+const joinRoles = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${JOIN_ROLES_PATH}` }),
+  schema: z.object({
+    role: z.enum(["PhD", "Postdoc", "Visiting Researcher", "Intern"]),
+    title: z.string(),
+    description: z.string(),
+    requirements: z.array(z.string()),
+    offers: z.array(z.string()),
+    status: z.enum(["open", "filled", "paused"]).default("open"),
+    deadline: z.date().optional(),
+    sortOrder: z.number().default(99),
+  }),
+});
+
+const joinFaq = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${JOIN_FAQ_PATH}` }),
+  schema: z.object({
+    question: z.string(),
+    category: z.string().default("General"),
+    sortOrder: z.number().default(99),
+  }),
+});
+
+export const collections = {
+  news,
+  team,
+  research,
+  publications,
+  joinRoles,
+  joinFaq,
+};

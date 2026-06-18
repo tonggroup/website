@@ -11,3 +11,7 @@ specialization:
   - Topological Data Analysis
   - Geometric Deep Learning
   - Drug Discovery
+coSupervisors:
+  - Michael Bronstein
+  - İsmail Ceylan
+  - Fernando Duarte

@@ -1,0 +1,16 @@
+name: Sebastian Bauer
+role: Visiting Student
+bio: >
+  Sebastian joins the group as a visiting student in September 2026. He
+  comes from Stockholm University and SciLifeLab, where he worked on machine
+  learning for microscopy and graph neural networks. His research interests
+  span machine learning, microscopy, and graph neural networks.
+website: https://scholar.google.com/citations?user=Dqq0FUYAAAAJ&hl=en
+specialization:
+  - Machine Learning for Microscopy
+  - Graph Neural Networks
+  - AI for Science
+future: true
+joined: September 2026
+coSupervisors:
+  - Juliette Griffie

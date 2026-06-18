@@ -12,3 +12,5 @@ specialization:
   - Generative Models
   - Boltzmann Generators
   - Scientific ML
+coSupervisors:
+  - Yoshua Bengio

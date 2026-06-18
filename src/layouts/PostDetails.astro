@@ -2,7 +2,6 @@
 import { render, type CollectionEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Footer from "@/components/Footer.astro";
-import Tag from "@/components/Tag.astro";
 import Datetime from "@/components/Datetime.astro";
 import EditPost from "@/components/EditPost.astro";
 import ShareLinks from "@/components/ShareLinks.astro";
@@ -117,8 +116,12 @@ const nextPost =
 
     <EditPost class="sm:hidden" {hideEditPost} {post} />
 
-    <ul class="mt-4 mb-8 flex flex-wrap gap-4 sm:my-8">
-      {tags.map(tag => <Tag tag={slugifyStr(tag)} tagName={tag} size="sm" />)}
+    <ul class="mt-4 mb-8 flex flex-wrap gap-2 sm:my-8">
+      {tags.map(tag => (
+        <li class="flex items-center gap-0.5 rounded-full bg-gray-100 px-3 py-1 text-sm text-gray-700 dark:bg-gray-700 dark:text-gray-300">
+          {tag}
+        </li>
+      ))}
     </ul>
 
     <BackToTopButton />

@@ -1,0 +1,93 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Main from "@/layouts/Main.astro";
+import RoleCard from "@/components/join/RoleCard.astro";
+import FaqItem from "@/components/join/FaqItem.astro";
+import WhyLabSection from "@/components/join/WhyLabSection.astro";
+import ApplicationSteps from "@/components/join/ApplicationSteps.astro";
+
+const CONTACT_EMAIL = "atong@aithyra.at";
+
+const roles = (await getCollection("joinRoles")).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder
+);
+
+const faqs = (await getCollection("joinFaq")).sort(
+  (a, b) => a.data.sortOrder - b.data.sortOrder
+);
+
+// Group FAQ by category, preserving sort order.
+const faqByCategory = faqs.reduce<Record<string, typeof faqs>>((acc, faq) => {
+  const cat = faq.data.category;
+  (acc[cat] ??= []).push(faq);
+  return acc;
+}, {});
+const faqCategories = Object.keys(faqByCategory);
+---
+
+<Layout
+  title="Join Us | Tong Group"
+  description="Open positions in the Tong Group at Aithyra, Vienna — PhD, postdoc, visiting researcher, and intern roles at the intersection of machine learning and the life sciences. Generative modeling, flow matching, optimal transport, protein design."
+>
+  <Main
+    pageTitle="Join the lab"
+    pageDesc="We are actively recruiting PhD students, postdocs, visiting researchers, and interns. We work at the intersection of machine learning and the life sciences — generative modeling, flow matching, optimal transport, and protein design."
+  >
+    <div class="space-y-12">
+      <!-- Open roles -->
+      <section>
+        <h2 class="mb-6 text-2xl font-semibold tracking-wide">Open positions</h2>
+        <div class="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {roles.map(role => <RoleCard role={role} contactEmail={CONTACT_EMAIL} />)}
+        </div>
+      </section>
+
+      <!-- How to apply -->
+      <ApplicationSteps contactEmail={CONTACT_EMAIL} />
+
+      <!-- Why the lab -->
+      <WhyLabSection />
+
+      <!-- FAQ -->
+      <section>
+        <h2 class="mb-6 text-2xl font-semibold tracking-wide">
+          Frequently asked questions
+        </h2>
+        <div class="space-y-8">
+          {
+            faqCategories.map(category => (
+              <div>
+                <h3 class="mb-3 text-sm font-semibold tracking-wide text-gray-500 uppercase dark:text-gray-400">
+                  {category}
+                </h3>
+                <div class="space-y-3">
+                  {faqByCategory[category].map(faq => <FaqItem faq={faq} />)}
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+
+      <!-- Contact CTA -->
+      <section
+        class="rounded-lg border border-blue-200 bg-blue-50 p-6 text-center dark:border-blue-800 dark:bg-blue-900/30 sm:p-8"
+      >
+        <h2 class="mb-2 text-2xl font-semibold text-gray-900 dark:text-white">
+          Still have questions?
+        </h2>
+        <p class="mb-4 text-gray-700 dark:text-gray-300">
+          Email Alexander directly — we read every message.
+        </p>
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          class="inline-flex items-center gap-1 rounded-md bg-blue-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-blue-700"
+        >
+          {CONTACT_EMAIL}
+          <span aria-hidden="true">→</span>
+        </a>
+      </section>
+    </div>
+  </Main>
+</Layout>

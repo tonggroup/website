@@ -1,0 +1,87 @@
+---
+interface Props {
+  contactEmail: string;
+}
+
+const { contactEmail } = Astro.props;
+
+const steps = [
+  {
+    title: "Explore our research",
+    body: "Read the Research and Publications pages to find an area you'd be excited to work on. A specific overlap makes a much stronger application than a generic interest in ML.",
+  },
+  {
+    title: "Prepare your materials",
+    body: "A short research statement (why this group, what you'd work on), your CV, and the names of 1–2 references. For PhD/postdoc applications, a 1–2 page research statement is ideal.",
+  },
+  {
+    title: "Email Alexander",
+    body: "Send a concise, specific email to the address below. Generic mass-emailed applications are easy to spot — tell us what you want to work on and why.",
+  },
+  {
+    title: "We'll follow up",
+    body: "If there's a fit, we'll set up a conversation. For PhD positions, we'll also discuss which Vienna-area doctoral program fits best and the relevant deadlines.",
+  },
+];
+
+const subject = "Application — Tong Group";
+const body = `Dear Alexander,
+
+I am writing to express interest in joining the Tong Group.
+
+Research interests:
+<which of our research areas, and why>
+
+Background:
+<short paragraph>
+
+Relevant links:
+- CV: <link or "attached">
+- Code/papers: <optional>
+
+References:
+- <name, affiliation, email>
+
+Thank you.`;
+const mailto = `mailto:${contactEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+---
+
+<section
+  class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800 sm:p-8"
+>
+  <h2 class="mb-6 text-2xl font-semibold tracking-wide">How to apply</h2>
+  <ol class="mb-6 space-y-4">
+    {
+      steps.map((step, i) => (
+        <li class="flex gap-4">
+          <span class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-600 text-sm font-bold text-white">
+            {i + 1}
+          </span>
+          <div>
+            <h3 class="text-base font-semibold text-gray-900 dark:text-white">
+              {step.title}
+            </h3>
+            <p class="mt-1 text-sm text-gray-700 dark:text-gray-300">{step.body}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+
+  <div class="rounded-lg bg-gray-50 p-4 dark:bg-gray-900">
+    <h3 class="mb-2 text-sm font-semibold text-gray-900 dark:text-white">
+      Suggested email template
+    </h3>
+    <p class="mb-3 text-sm text-gray-700 dark:text-gray-300">
+      Click below to open your mail client with a prefilled template. Replace the
+      placeholders with your details.
+    </p>
+    <a
+      href={mailto}
+      class="inline-flex items-center gap-1 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-blue-700"
+    >
+      Email Alexander
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>

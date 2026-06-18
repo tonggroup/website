@@ -6,3 +6,5 @@ bio: >
 email: rpassaro@aithyra.at
 github: romeopassaro
 website: https://github.com/romeopassaro
+coSupervisors:
+  - Michael Bronstein

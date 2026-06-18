@@ -1,0 +1,20 @@
+name: Han Tang
+role: Visiting PhD Student
+photo: https://HirahTang.github.io/images/headfoto.jpg
+bio: >
+  Han is a PhD candidate at the University of Copenhagen advised by Wouter
+  Boomsma, visiting the Tong Group at Aithyra. His research sits at the
+  intersection of machine learning, chemistry, and the life sciences. Before
+  starting his PhD he was a Research Engineer at Tsinghua University's
+  Institute for AI Industry Research (AIR).
+email: ht@di.ku.dk
+github: HirahTang
+twitter: HirahTang_
+linkedin: hantang1995
+website: https://HirahTang.github.io/
+specialization:
+  - AI for Science
+  - ML for Chemistry
+  - ML for Life Sciences
+coSupervisors:
+  - Wouter Boomsma

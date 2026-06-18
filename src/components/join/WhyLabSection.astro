@@ -1,0 +1,46 @@
+---
+// Static "Why join the lab" block. Content is intentionally hardcoded — it changes
+// rarely and benefits from being written carefully rather than data-driven.
+const reasons = [
+  {
+    title: "Mentorship & track record",
+    body: "Alexander trained at Yale (Smita Krishnaswamy), Mila (Yoshua Bengio), and Duke before founding the group at Aithyra. The group is small enough that you work directly with the PI, with a track record of students producing widely-cited work in flow matching and generative modeling.",
+  },
+  {
+    title: "A leading research environment",
+    body: "Aithyra is a new institute at the intersection of machine learning and life sciences, led by Michael Bronstein and funded by the Boehringer Ingelheim Foundation. You join a growing community of ML and biology researchers under one roof.",
+  },
+  {
+    title: "International collaborators",
+    body: "We collaborate actively with groups at Mila, Oxford, and beyond. Students and postdocs routinely co-author with international partners and present at top venues (NeurIPS, ICML, ICLR, COLM).",
+  },
+  {
+    title: "Compute & travel",
+    body: "Funded positions come with dedicated GPU compute and a conference travel budget, so you can run experiments at scale and present your work where it matters.",
+  },
+  {
+    title: "Life in Vienna",
+    body: "Vienna regularly ranks as the world's most livable city: excellent transit, affordable housing by major-city standards, and a rich cultural scene. English is the working language of the institute.",
+  },
+  {
+    title: "Open science culture",
+    body: "We release code and preprints openly. See the lab on GitHub for our libraries on flow matching and related methods — you'll be contributing to tools used across the community.",
+  },
+];
+---
+
+<section class="rounded-lg border border-gray-200 bg-white p-6 dark:border-gray-700 dark:bg-gray-800 sm:p-8">
+  <h2 class="mb-6 text-2xl font-semibold tracking-wide">Why join the lab</h2>
+  <div class="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {
+      reasons.map(reason => (
+        <div>
+          <h3 class="mb-2 text-base font-semibold text-blue-600 dark:text-blue-400">
+            {reason.title}
+          </h3>
+          <p class="text-sm text-gray-700 dark:text-gray-300">{reason.body}</p>
+        </div>
+      ))
+    }
+  </div>
+</section>

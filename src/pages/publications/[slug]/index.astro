@@ -8,7 +8,8 @@ import {
   publicationVenueLabel,
   publicationVenueToHtml,
 } from "@/utils/publicationVenue";
-import { buildAuthorLinkMap, resolveAuthorSlug } from "@/utils/authorLink";
+import { buildAuthorLinkMap } from "@/utils/authorLink";
+import AuthorList from "@/components/AuthorList.astro";
 
 export async function getStaticPaths() {
   const publications = await getCollection("publications");
@@ -91,19 +92,12 @@ const venueDisplay = publicationVenueLabel(data.publication, data.urlPdf);
 
         <div class="mt-4">
           <h2 class="text-lg font-semibold">Authors</h2>
-          <p class="mt-2 text-gray-700 dark:text-gray-300">
-            {data.authors.map((author: string, i: number) => (
-              <>
-                {i > 0 && ", "}
-                {(() => {
-                  const slug = resolveAuthorSlug(author, authorLinkMap);
-                  return slug
-                    ? <a href={`/team/${slug}`} class="text-blue-600 hover:underline dark:text-blue-400">{author}</a>
-                    : author;
-                })()}
-              </>
-            ))}
-          </p>
+          <AuthorList
+            authors={data.authors}
+            authorNotes={data.authorNotes}
+            authorLinkMap={authorLinkMap}
+            class="mt-2 text-gray-700 dark:text-gray-300"
+          />
         </div>
 
         {

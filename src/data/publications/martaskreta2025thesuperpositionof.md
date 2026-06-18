@@ -12,5 +12,8 @@ urlPdf: https://arxiv.org/pdf/2412.17762
 links:
   - name: Paper
     url: https://arxiv.org/pdf/2412.17762
+authorNotes:
+  Marta Skreta: Equal Contribution
+  Lazar Atanackovic: Equal Contribution
 ---
 

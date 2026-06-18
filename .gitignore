@@ -26,3 +26,8 @@ pnpm-debug.log*
 # pagefind
 
 public/pagefind
+# agent things
+.tmp
+opencode.json
+# Vim things
+*.sw?
