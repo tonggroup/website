@@ -20,6 +20,8 @@ urlPdf: https://arxiv.org/abs/2512.06987
 links:
   - name: Paper
     url: https://arxiv.org/abs/2512.06987
+  - name: Website
+    url: https://oxtal.github.io/
 authorNotes:
   Emily Jin: Equal Contribution
   Andrei Cristian Nica: Equal Contribution

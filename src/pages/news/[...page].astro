@@ -7,17 +7,16 @@ import Footer from "@/components/Footer.astro";
 import Card from "@/components/Card.astro";
 import Pagination from "@/components/Pagination.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
-import { SITE } from "@/config";
 
 export const getStaticPaths = (async ({ paginate }) => {
   const newsItems = await getCollection("news", ({ data }) => !data.draft);
-  return paginate(getSortedPosts(newsItems), { pageSize: SITE.postPerPage });
+  return paginate(getSortedPosts(newsItems), { pageSize: 999 });
 }) satisfies GetStaticPaths;
 
 const { page } = Astro.props;
 ---
 
-<Layout title={`News | ${SITE.title}`}>
+<Layout title={`News | Tong Group`}>
   <Main pageTitle="News" pageDesc="All the news I've posted.">
     <ul>
       {page.data.map(data => <Card {...data} />)}

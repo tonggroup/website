@@ -16,9 +16,15 @@ const { data, id } = research;
 >
   <!-- Media -->
   {
-    (data.video || data.image) && (
+    (data.gif || data.video || data.image) && (
       <div class="relative aspect-square overflow-hidden bg-gray-100 p-4 dark:bg-gray-700">
-        {data.video ? (
+        {data.gif ? (
+          <img
+            src={data.gif}
+            alt={data.title}
+            class="h-full w-full object-contain transition-transform group-hover:scale-105"
+          />
+        ) : data.video ? (
           <video
             src={data.video}
             aria-label={data.title}

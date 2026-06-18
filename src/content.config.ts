@@ -51,6 +51,7 @@ const research = defineCollection({
       description: z.string(),
       image: image().optional(),
       video: z.string().optional(),
+      gif: z.string().optional(),
       status: z.enum(["active", "completed", "ongoing"]).default("active"),
       tags: z.array(z.string()).optional(),
       publications: z.array(z.string()).optional(),

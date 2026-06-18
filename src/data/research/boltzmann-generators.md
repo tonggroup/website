@@ -8,6 +8,7 @@ tags:
   - normalizing-flows
   - statistical-physics
 image: ../../assets/research/boltzmann-generators.png
+gif: /research/robin.gif
 members:
   - zander-blasingame
   - charlie-tan
@@ -24,6 +25,8 @@ publications:
 ---
 
 Boltzmann Generators pair generative models with exact likelihoods and importance sampling to rapidly generate uncorrelated equilibrium samples from molecular systems at thermodynamic equilibrium. This is a hallmark challenge in statistical physics with direct applications to drug discovery and molecular dynamics.
+
+![Boltzmann generator sampling a molecular system](/research/robin.gif)
 
 Our group has pioneered several advances in this area: iterated denoising energy matching (iDEM) and progressive inference-time annealing (PITA) for sampling from Boltzmann densities without differentiating the target potential, sequential Boltzmann generators for scalable equilibrium sampling, and amortized sampling with transferable normalizing flows (Prose).
 
