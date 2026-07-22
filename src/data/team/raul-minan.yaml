@@ -3,7 +3,7 @@ role: PhD Student
 photo: https://aithyra.at/fileadmin/_processed_/3/c/csm_RaulMinan-10_41f4e0809f.jpg
 bio: >
   Raul works on machine learning for structure-based drug discovery, with a focus on protein–ligand docking and generative modeling of protein conformations. His work includes geodesic-guided diffusion methods for molecular docking (GeoDirDock) and generative models for ligand-accommodating pocket conformations (Sesame).
-email: raul.minan@aithyra.at
+email: rminan@aithyra.at
 github: raulminan
 website: https://github.com/raulminan
 specialization:
