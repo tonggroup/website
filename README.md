@@ -1,10 +1,10 @@
 # Tong Group website
 
-Public site for the **Tong Group** research lab at [Aithyra](https://aithyra.at/) (Vienna), at the intersection of machine learning and life sciences. The principal investigator’s personal site is [alextong.net](https://alextong.net/).
+Public site for the **Tong Group** research lab at [Aithyra](https://aithyra.at/) (Vienna), at the intersection of machine learning and life sciences. The principal investigator's personal site is [alextong.net](https://alextong.net/).
 
 ![Default social preview](public/tong-group-og.png)
 
-Built with [Astro](https://astro.build/) 5, Tailwind CSS 4, and content collections for news, team, research areas, and publications. The codebase started from the [AstroPaper](https://github.com/satnaing/astro-paper) theme; theme-specific docs still live under `src/data/news/` for reference.
+Built with [Astro](https://astro.build/) 5, Tailwind CSS 4, and content collections for news, team, research areas, and publications.
 
 ## Running locally
 
@@ -33,4 +33,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for publications workflow notes.
 
 ## License
 
-Inherited AstroPaper and project licenses apply to respective portions; refer to repository history and upstream [AstroPaper license](https://github.com/satnaing/astro-paper).
+MIT License — see [LICENSE](LICENSE).

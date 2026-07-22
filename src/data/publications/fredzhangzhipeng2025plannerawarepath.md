@@ -17,6 +17,8 @@ urlPdf: https://arxiv.org/abs/2509.23405
 links:
   - name: Paper
     url: https://arxiv.org/abs/2509.23405
+  - name: Code
+    url: http://github.com/pengzhangzhi/PAPL
 authorNotes:
   Fred Zhangzhi Peng: Equal Contribution
   Zachary Bezemek: Equal Contribution

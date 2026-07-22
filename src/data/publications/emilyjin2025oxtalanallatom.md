@@ -20,6 +20,8 @@ urlPdf: https://arxiv.org/abs/2512.06987
 links:
   - name: Paper
     url: https://arxiv.org/abs/2512.06987
+  - name: Code
+    url: https://github.com/OXtal/OXtal
   - name: Website
     url: https://oxtal.github.io/
 authorNotes:

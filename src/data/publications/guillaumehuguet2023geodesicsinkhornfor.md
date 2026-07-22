@@ -15,6 +15,8 @@ urlPdf: https://arxiv.org/abs/2211.00805
 links:
   - name: Paper
     url: https://arxiv.org/abs/2211.00805
+  - name: Code
+    url: https://github.com/KrishnaswamyLab/GeoSinkhorn
 authorNotes:
   Guillaume Huguet: Equal Contribution
   admin: Equal Contribution

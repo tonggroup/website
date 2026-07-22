@@ -12,6 +12,8 @@ urlPdf: https://arxiv.org/pdf/2412.17762
 links:
   - name: Paper
     url: https://arxiv.org/pdf/2412.17762
+  - name: Code
+    url: https://github.com/necludov/super-diffusion
 authorNotes:
   Marta Skreta: Equal Contribution
   Lazar Atanackovic: Equal Contribution

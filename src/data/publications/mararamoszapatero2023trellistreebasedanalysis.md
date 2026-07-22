@@ -19,6 +19,8 @@ urlPdf: https://authors.elsevier.com/sd/article/S0092867423012205
 links:
   - name: Paper
     url: https://authors.elsevier.com/sd/article/S0092867423012205
+  - name: Code
+    url: https://github.com/TAPE-Lab/Ramos-et-al-Trellis
 authorNotes:
   María Ramos Zapatero: Equal Contribution
   admin: Equal Contribution

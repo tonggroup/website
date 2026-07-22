@@ -15,6 +15,8 @@ urlPdf: https://arxiv.org/abs/2606.01086
 links:
   - name: Paper
     url: https://arxiv.org/abs/2606.01086
+  - name: Code
+    url: https://github.com/sammccallum/ssfm
 authorNotes:
   Sam McCallum: Equal Contribution
   Zander W. Blasingame: Equal Contribution

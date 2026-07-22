@@ -15,6 +15,8 @@ urlPdf: https://proceedings.mlr.press/v202/fasina23a.html
 links:
   - name: Paper
     url: https://proceedings.mlr.press/v202/fasina23a.html
+  - name: Code
+    url: https://github.com/guillaumehu/phate_fim
 authorNotes:
   Oluwadamilola Fasina: Equal Contribution
   Guillaume Huguet: Equal Contribution
