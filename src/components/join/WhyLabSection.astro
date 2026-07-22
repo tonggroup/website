@@ -29,6 +29,7 @@ const reasons = [
   {
     title: "Open science culture",
     body: "We release code and preprints openly. See the lab on GitHub for our libraries on flow matching and related methods — you'll be contributing to tools used across the community.",
+    bodyHtml: "We release code and preprints openly. See the lab on <a href=\"https://github.com/tonggroup\" class=\"text-blue-600 dark:text-blue-400 hover:underline\">GitHub</a> for our libraries on flow matching and related methods — you'll be contributing to tools used across the community.",
   },
 ];
 ---
@@ -42,7 +43,7 @@ const reasons = [
           <h3 class="mb-2 text-base font-semibold text-blue-600 dark:text-blue-400">
             {reason.title}
           </h3>
-          <p class="text-sm text-gray-700 dark:text-gray-300">{reason.body}</p>
+            <p class="text-sm text-gray-700 dark:text-gray-300" set:html={reason.bodyHtml ?? reason.body} />
         </div>
       ))
     }
