@@ -17,6 +17,8 @@ links:
     url: https://arxiv.org/abs/2606.01086
   - name: Code
     url: https://github.com/sammccallum/ssfm
+  - name: Slides
+    url: https://zblasingame.github.io/slides/ssfm/slides.html
 authorNotes:
   Sam McCallum: Equal Contribution
   Zander W. Blasingame: Equal Contribution
