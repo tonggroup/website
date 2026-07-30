@@ -29,6 +29,23 @@ html[data-theme="dark"] {
   --color-border: var(--border);
 }
 
+/* Remap Tailwind's blue scale to an Aithyra teal ramp so that the
+   hardcoded blue-* classes across components stay on-brand.
+   Centered on Aithyra teal #0A6478 at the 600 slot. */
+@theme {
+  --color-blue-50: #eff8fa;
+  --color-blue-100: #d7edf2;
+  --color-blue-200: #b0dbe5;
+  --color-blue-300: #79c0d2;
+  --color-blue-400: #429fb8;
+  --color-blue-500: #22839c;
+  --color-blue-600: #0a6478;
+  --color-blue-700: #0a5466;
+  --color-blue-800: #0c4453;
+  --color-blue-900: #0e3946;
+  --color-blue-950: #052730;
+}
+
 @layer base {
   * {
     @apply border-border outline-accent/75;
