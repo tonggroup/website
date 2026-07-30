@@ -46,6 +46,23 @@ html[data-theme="dark"] {
   --color-blue-950: #052730;
 }
 
+/* Remap Tailwind's blue-tinted gray scale to the Aithyra neutral greys
+   (brand book: #F6F6F6, #C8C8C8, #505050, #1E1E1E) so neutral surfaces
+   don't read as blue against the dark green theme. */
+@theme {
+  --color-gray-50: #f6f6f6;
+  --color-gray-100: #ececec;
+  --color-gray-200: #dadada;
+  --color-gray-300: #c8c8c8;
+  --color-gray-400: #a8a8a8;
+  --color-gray-500: #7a7a7a;
+  --color-gray-600: #505050;
+  --color-gray-700: #3a3a3a;
+  --color-gray-800: #2a2a2a;
+  --color-gray-900: #1e1e1e;
+  --color-gray-950: #121212;
+}
+
 @layer base {
   * {
     @apply border-border outline-accent/75;
