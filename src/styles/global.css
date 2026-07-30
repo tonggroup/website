@@ -18,6 +18,10 @@ html[data-theme="dark"] {
   --accent: #37be55;
   --muted: #0e3333;
   --border: #0a6478;
+  /* Elevate surfaces with tints of the brand dark green instead of
+     neutral charcoal, so cards/buttons feel like one cohesive surface. */
+  --color-gray-700: #1c4646;
+  --color-gray-800: #0f3636;
 }
 
 @theme inline {
