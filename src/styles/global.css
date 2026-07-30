@@ -5,19 +5,23 @@
 
 :root,
 html[data-theme="light"] {
-  --background: #fdfdfd;
-  --foreground: #282728;
-  --accent: #006cac;
-  --muted: #e6e6e6;
-  --border: #ece9e9;
+  --background: #ffffff;
+  --foreground: #1e1e1e;
+  --accent: #0a6478;
+  --muted: #f6f6f6;
+  --border: #c8c8c8;
 }
 
 html[data-theme="dark"] {
-  --background: #212737;
-  --foreground: #eaedf3;
-  --accent: #ff6b01;
-  --muted: #343f60;
-  --border: #ab4b08;
+  --background: #052323;
+  --foreground: #f6f6f6;
+  --accent: #37be55;
+  --muted: #0e3333;
+  --border: #0a6478;
+  /* Elevate surfaces with tints of the brand dark green instead of
+     neutral charcoal, so cards/buttons feel like one cohesive surface. */
+  --color-gray-700: #1c4646;
+  --color-gray-800: #0f3636;
 }
 
 @theme inline {
@@ -27,6 +31,40 @@ html[data-theme="dark"] {
   --color-accent: var(--accent);
   --color-muted: var(--muted);
   --color-border: var(--border);
+}
+
+/* Remap Tailwind's blue scale to an Aithyra teal ramp so that the
+   hardcoded blue-* classes across components stay on-brand.
+   Centered on Aithyra teal #0A6478 at the 600 slot. */
+@theme {
+  --color-blue-50: #eff8fa;
+  --color-blue-100: #d7edf2;
+  --color-blue-200: #b0dbe5;
+  --color-blue-300: #79c0d2;
+  --color-blue-400: #429fb8;
+  --color-blue-500: #22839c;
+  --color-blue-600: #0a6478;
+  --color-blue-700: #0a5466;
+  --color-blue-800: #0c4453;
+  --color-blue-900: #0e3946;
+  --color-blue-950: #052730;
+}
+
+/* Remap Tailwind's blue-tinted gray scale to the Aithyra neutral greys
+   (brand book: #F6F6F6, #C8C8C8, #505050, #1E1E1E) so neutral surfaces
+   don't read as blue against the dark green theme. */
+@theme {
+  --color-gray-50: #f6f6f6;
+  --color-gray-100: #ececec;
+  --color-gray-200: #dadada;
+  --color-gray-300: #c8c8c8;
+  --color-gray-400: #a8a8a8;
+  --color-gray-500: #7a7a7a;
+  --color-gray-600: #505050;
+  --color-gray-700: #3a3a3a;
+  --color-gray-800: #2a2a2a;
+  --color-gray-900: #1e1e1e;
+  --color-gray-950: #121212;
 }
 
 @layer base {
