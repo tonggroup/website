@@ -19,4 +19,4 @@ We welcome PhD applicants who are excited about developing new machine learning 
 
 We accept PhD students through the **Aithyra PhD program**. See the FAQ for details, and contact Alex during the application cycle.
 
-**The current PhD call is now closed.** The next call opens in September 2026 for PhD students starting Spring 2027.
+**The current PhD call is now closed.** The next call opens in September 2026 and closes November 1st, for PhD students starting September 2027.
