@@ -11,12 +11,12 @@ offers:
   - Competitive salary and benefits through Aithyra / Boehringer Ingelheim Foundation funding
   - Access to substantial GPU compute and collaborative research infrastructure
   - Co-supervision opportunities with international collaborators (e.g. Mila, Bronstein group)
-status: paused
+status: open
 sortOrder: 1
 ---
 
 We welcome PhD applicants who are excited about developing new machine learning methods at the intersection of ML and the life sciences. PhD students in the group lead projects end-to-end — from problem formulation and method development to publication — while collaborating closely with labmates and external partners.
 
-We accept PhD students through the **Aithyra PhD program**. See the FAQ for details, and contact Alex during the application cycle.
+We accept PhD students through the [**Aithyra PhD program**](https://phd.aithyra.at/). See the FAQ for details, and contact Alex during the application cycle.
 
-**The current PhD call is now closed.** The next call opens in September 2026 and closes November 1st, for PhD students starting September 2027.
+**The PhD call is now open** and closes November 1st, for PhD students starting September 2027.
