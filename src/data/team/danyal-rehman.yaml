@@ -1,5 +1,7 @@
 name: Danyal Rehman
 role: Visiting Researcher
+alumni: true
+currentPosition: Banting Postdoctoral Researcher at Mila – Québec AI Institute
 photo: ../../assets/team/danyal-rehman.jpg
 bio: >
   Danyal is a Banting Postdoctoral Researcher at Mila – Québec AI Institute (advised by Yoshua Bengio) and a visiting researcher with the group, developing diffusion-, flow-, and autoregressive generative models for AI for science. He completed his PhD at MIT, with recent work on Boltzmann generators for molecular sampling (RegFlow, FALCON, Autoregressive Boltzmann Generators).

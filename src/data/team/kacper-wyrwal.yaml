@@ -1,5 +1,6 @@
 name: Kacper Wyrwal
 role: PhD Student
+photo: ../../assets/team/kacper-wyrwal.jpg
 bio: >
   Kacper joins the group as a PhD student at the University of Oxford in
   fall 2026. He is co-supervised with Michael Bronstein and Alexander Tong,
@@ -13,5 +14,5 @@ specialization:
   - Topological Deep Learning
 coSupervisors:
   - Michael Bronstein
+  - İsmail İlkan Ceylan
 joined: Fall 2026
-future: true

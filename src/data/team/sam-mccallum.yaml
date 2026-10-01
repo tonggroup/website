@@ -1,0 +1,15 @@
+name: Sam McCallum
+role: Visiting Researcher
+currentPosition: University of Bath
+bio: >
+  Sam McCallum is a researcher at the University of Bath working on numerical
+  methods, machine learning, and differential equations. His research includes
+  neural ODEs, reversible deep equilibrium models, and strong stochastic flow
+  maps. He was a visiting researcher with the group.
+website: https://scholar.google.com/citations?user=YGmgSVYAAAAJ&hl=en
+specialization:
+  - Numerical Methods
+  - Machine Learning
+  - Differential Equations
+  - Neural ODEs
+alumni: true
