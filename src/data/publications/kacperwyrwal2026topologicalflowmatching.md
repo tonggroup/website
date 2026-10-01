@@ -2,7 +2,7 @@
 title: "Topological Flow Matching"
 authors:
   - Kacper Wyrwal
-  - Ismail Ilkan Ceylan
+  - İsmail İlkan Ceylan
   - Alexander Tong
 date: 2026-05-07
 publication: "In *ICLR 2026*"
