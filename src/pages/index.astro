@@ -9,7 +9,7 @@ import Card from "@/components/Card.astro";
 import getSortedPosts from "@/utils/getSortedPosts";
 import IconRss from "@/assets/icons/IconRss.svg";
 import IconArrowRight from "@/assets/icons/IconArrowRight.svg";
-import groupPhoto from "@/assets/team/tong-group-sept-2026.jpg";
+import groupPhoto from "@/assets/team/tong-group-april-2026.jpg";
 import { SITE } from "@/config";
 import { SOCIALS } from "@/constants";
 
@@ -90,13 +90,13 @@ const recentPosts = sortedPosts.filter(({ data }) => !data.featured);
       <figure class="mt-8">
         <Image
           src={groupPhoto}
-          alt="Tong Group at Aithyra, September 2026"
+          alt="Tong Group at Aithyra, April 2026"
           widths={[640, 960, 1280]}
           sizes="(max-width: 640px) 100vw, 960px"
           class="w-full rounded-lg object-cover shadow-sm"
         />
         <figcaption class="text-skin-muted mt-2 text-center text-sm">
-          Tong Group at Aithyra, September 2026
+          Tong Group at Aithyra, April 2026
         </figcaption>
       </figure>
       {
