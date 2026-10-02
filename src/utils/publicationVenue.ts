@@ -11,12 +11,18 @@ export function publicationVenueLabel(
   return "";
 }
 
-/** Escape HTML, then turn *segment* into <em> (common in publication frontmatter). */
+/** Escape HTML, then turn *segment* into <em> (common in publication frontmatter).
+ * Award designations — (Oral), (Spotlight), awards — are highlighted bold in accent. */
 export function publicationVenueToHtml(label: string): string {
   if (!label) return "";
   return label
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
-    .replace(/\*([^*]+)\*/g, "<em>$1</em>");
+    .replace(/\*\*([^*]+)\*\*/g, '<strong class="font-bold text-accent">$1</strong>')
+    .replace(/\*([^*]+)\*/g, "<em>$1</em>")
+    .replace(
+      /\(([^()]*?(?:Oral|Spotlight|Award)[^()]*?)\)/gi,
+      '<strong class="font-bold text-accent">($1)</strong>'
+    );
 }
